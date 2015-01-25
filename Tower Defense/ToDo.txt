@@ -1,0 +1,9 @@
+Creep manager
+	list of active creeps
+	list of inactive creeps
+	constructor - GameScene* gameScene
+	create<CreepName> - int path
+		setup first inactive creep
+		add to active creeps
+		remove from inactive creeps
+finish creep update
