@@ -25,11 +25,12 @@ CreepManager::~CreepManager()
 
 Creep* CreepManager::GetFirstInactive()
 {
-	for (int i = 0; i < creeps_.size(); i++)
+	for (int i = 0; i < (int)creeps_.size(); i++)
 	{
 		if (!creeps_[i]->active)
 			return creeps_[i];
 	}
+	return nullptr;
 }
 
 void CreepManager::NewCreep(const std::string& type, int path)

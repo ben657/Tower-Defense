@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(Scene* scene, const std::string& name) : Entity(scene), name_(name)
+Map::Map(Scene* scene, const std::string& name) : Entity(), name_(name)
 {
 	gfx->LoadTexture("Data/maps/" + name + "/colour.png", name + "colour");
 	gfx->LoadTexture("Data/maps/" + name + "/placement.png", name + "placement");
@@ -9,7 +9,7 @@ Map::Map(Scene* scene, const std::string& name) : Entity(scene), name_(name)
 
 bool Map::CanPlace(const Vec2& position)
 {
-	Colour mask = gfx->PixelAt(position);
+	Colour mask = gfx->PixelAt(position, name_ + "placement");
 	return (mask.r == 0 && mask.g == 0 && mask.b == 0);
 }
 

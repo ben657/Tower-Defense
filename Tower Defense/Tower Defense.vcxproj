@@ -92,6 +92,8 @@
     <ClCompile Include="Game\CreepManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Map.cpp" />
+    <ClCompile Include="Game\Projectile.cpp" />
+    <ClCompile Include="Game\ProjectileManager.cpp" />
     <ClCompile Include="Game\Tower.cpp" />
     <ClCompile Include="Game\TowerManager.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
@@ -111,6 +113,8 @@
     <ClInclude Include="Game\CreepManager.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Map.h" />
+    <ClInclude Include="Game\Projectile.h" />
+    <ClInclude Include="Game\ProjectileManager.h" />
     <ClInclude Include="Game\Tower.h" />
     <ClInclude Include="Game\TowerManager.h" />
     <ClInclude Include="Graphics\Animation.h" />

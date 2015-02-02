@@ -3,6 +3,8 @@
 #include <World/Scene.h>
 #include <Game/Map.h>
 #include <Game/CreepManager.h>
+#include <Game/TowerManager.h>
+#include <Game/ProjectileManager.h>
 #include <Input.h>
 #include <fstream>
 
@@ -18,7 +20,9 @@ private:
 	std::vector<std::vector<Vec2>> paths_;
 	int* pathLengths_;
 
-	CreepManager* cManager_;
+	CreepManager* cManager_ = nullptr;
+	TowerManager* tManager_ = nullptr;
+	ProjectileManager* pManager_ = nullptr;
 
 public:
 	GameScene();

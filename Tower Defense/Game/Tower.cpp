@@ -1,7 +1,6 @@
 #include "Tower.h"
 
-
-Tower::Tower(GameScene* scene, const std::string& textureID = "") : Entity((Scene*)scene, Vec2(0.f, 0.f), textureID), gScene_(scene)
+Tower::Tower(GameScene* scene, const std::string& textureID) : Entity(Vec2(0.f, 0.f), textureID), gScene_(scene)
 {
 
 }
@@ -22,11 +21,12 @@ void Tower::SetAnimations(int idle, int fire)
 	fireAnim_ = fire;
 }
 
-void Tower::SetStats(int health, int damage, int attackDelay)
+void Tower::SetStats(int health, int damage, float attackDelay, float range)
 {
 	health_ = health;
 	damage_ = damage;
 	attackDelay_ = attackDelay;
+	range_ = range;
 }
 
 void Tower::Update(float delta)

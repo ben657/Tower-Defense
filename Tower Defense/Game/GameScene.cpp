@@ -5,12 +5,15 @@ GameScene::GameScene()
 	HAPI->SetShowFPS(true);
 
 	cManager_ = new CreepManager(this, 100);
+	tManager_ = new TowerManager(this, 100);
+	pManager_ = new ProjectileManager(100);
 
 	map = new Map((Scene*)this, "map1");
 	AddEntity(map);
 
 	gfx->LoadTexture("Data/creeps/bunny.png", "creep_bunny");
 	gfx->LoadTexture("Data/towers/fireBall.png", "tower_fireBall");
+	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
 
 	pathLengths_ = new int[2];
 	pathLengths_[0] = 11;
@@ -58,19 +61,27 @@ Vec2 GameScene::NextPoint(int path, int currentIndex)
 
 void GameScene::Update(float delta)
 {
-	Scene::Update(delta);
-
-	cManager_->Update(delta);
+	Scene::Update(delta);	
 
 	if (input->MouseBtnJustDown(0))
 	{
-		HAPI->DebugText(map->CanPlace(input->MousePos()) ? "Can place" : "Cannot place");
+		if (map->CanPlace(input->MousePos()))
+		{
+			tManager_->NewTower("fireBall", input->MousePos());
+			pManager_->NewProjectile("fireBall", Vec2(800.f, 450.f), input->MousePos() - Vec2(800.f, 450.f));
+		}
 	}
+
+	tManager_->Update(delta);
+	cManager_->Update(delta);
+	pManager_->Update(delta);
 }
 
 void GameScene::FixedUpdate()
 {
 	cManager_->FixedUpdate();
+	tManager_->FixedUpdate();
+	pManager_->FixedUpdate();
 	Scene::FixedUpdate();
 }
 
@@ -78,4 +89,6 @@ void GameScene::Draw()
 {	
 	Scene::Draw();
 	cManager_->Draw();
+	tManager_->Draw();
+	pManager_->Draw();
 }

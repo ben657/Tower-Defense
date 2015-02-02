@@ -33,7 +33,7 @@ void Texture::Fill(const Colour& colour)
 Colour Texture::PixelAt(const Vec2& position)
 {
 	BYTE* offset = data_ + ((int)position.x_ + (int)position.y_ * width_) * 4;
-	return Colour((int)offset[3], (int)offset[2], (int)offset[1], (int)offset[0]);
+	return Colour((int)offset[2], (int)offset[1], (int)offset[0], (int)offset[3]);
 }
 
 void Texture::Blit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, int width, int height)

@@ -4,7 +4,7 @@
 TowerManager::TowerManager(GameScene* scene, int initialNum)
 {
 	//Temp data, will read from file eventually
-	towerDatas_["bunny"] = TowerData();
+	towerDatas_["fireBall"] = TowerData();
 	towerDatas_["fireBall"].health = 10;
 	towerDatas_["fireBall"].attack = 2;
 	towerDatas_["fireBall"].attackDelay = 0.5f;
@@ -22,21 +22,22 @@ TowerManager::~TowerManager()
 
 Tower* TowerManager::GetFirstInactive()
 {
-	for (int i = 0; i < towers_.size(); i++)
+	for (int i = 0; i < (int)towers_.size(); i++)
 	{
 		if (!towers_[i]->active)
 			return towers_[i];
 	}
+	return nullptr;
 }
 
-void TowerManager::NewCreep(const std::string& type, const Vec2& position)
+void TowerManager::NewTower(const std::string& type, const Vec2& position)
 {
 	Tower* tower = GetFirstInactive();
 	tower->SetOffset(towerDatas_[type].offset);
 	tower->active = true;
 	tower->Reset("tower_" + type, position);
 	tower->SetAnimations(towerDatas_[type].idleAnim, towerDatas_[type].fireAnim);
-	tower->SetStats(towerDatas_[type].health, towerDatas_[type].attack, towerDatas_[type].attackDelay);
+	tower->SetStats(towerDatas_[type].health, towerDatas_[type].attack, towerDatas_[type].attackDelay, towerDatas_[type].range);
 }
 
 void TowerManager::Update(float delta)

@@ -11,6 +11,7 @@ private:
 
 	int health_ = 0;
 	int damage_ = 0;
+	float range_ = 0.f;
 	float attackDelay_ = 0.f;
 
 	int idleAnim_ = 0;
@@ -24,7 +25,7 @@ public:
 
 	void Reset(const std::string& textureID = "", const Vec2& position = Vec2(0.f, 0.f));
 	void SetAnimations(int idle, int fire);
-	void SetStats(int health, int damage, int attackDelay);
+	void SetStats(int health, int damage, float attackDelay, float range);
 
 	void Update(float delta) override;
 	void FixedUpdate() override;

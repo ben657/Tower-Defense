@@ -10,6 +10,7 @@ struct TowerData
 {
 	int health = 0;
 	int attack = 0;
+	float range = 0.f;
 	float attackDelay = 0.f;
 	Vec2 offset;
 	int idleAnim = -1;
@@ -30,7 +31,7 @@ public:
 	TowerManager(GameScene* scene, int initialNum);
 	~TowerManager();
 
-	void NewCreep(const std::string& type, const Vec2& position);
+	void NewTower(const std::string& type, const Vec2& position);
 
 	void Update(float delta);
 	void FixedUpdate();
