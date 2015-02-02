@@ -57,7 +57,13 @@
     <ClCompile Include="Game\Creep.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Creeps\Bunny.cpp">
+    <ClCompile Include="Game\CreepManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Tower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\TowerManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,12 +107,21 @@
     <ClInclude Include="Game\Creep.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Creeps\Bunny.h">
+    <ClInclude Include="Game\CreepManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Tower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\TowerManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ToDo.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+    <Text Include="Creeps.txt">
       <Filter>Source Files</Filter>
     </Text>
   </ItemGroup>

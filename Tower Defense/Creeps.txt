@@ -1,0 +1,4 @@
+Name Bunny
+Health 10
+Attack 2
+speed 1

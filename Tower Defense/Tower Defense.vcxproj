@@ -89,9 +89,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game\Creep.cpp" />
-    <ClCompile Include="Game\Creeps\Bunny.cpp" />
+    <ClCompile Include="Game\CreepManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Map.cpp" />
+    <ClCompile Include="Game\Tower.cpp" />
+    <ClCompile Include="Game\TowerManager.cpp" />
     <ClCompile Include="Graphics\Animation.cpp" />
     <ClCompile Include="Graphics\Graphics.cpp" />
     <ClCompile Include="Graphics\Texture.cpp" />
@@ -106,9 +108,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game\Creep.h" />
-    <ClInclude Include="Game\Creeps\Bunny.h" />
+    <ClInclude Include="Game\CreepManager.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Map.h" />
+    <ClInclude Include="Game\Tower.h" />
+    <ClInclude Include="Game\TowerManager.h" />
     <ClInclude Include="Graphics\Animation.h" />
     <ClInclude Include="Graphics\Graphics.h" />
     <ClInclude Include="Graphics\Texture.h" />
@@ -121,6 +125,7 @@
     <ClInclude Include="World\World.h" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="Creeps.txt" />
     <Text Include="ToDo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

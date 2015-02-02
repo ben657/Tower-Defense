@@ -1,10 +1,9 @@
 #include "Entity.h"
+#include <World/Scene.h>
 
-
-Entity::Entity(int x, int y, std::string textureID) : position_((float)x, (float)y), textureID_(textureID)
+Entity::Entity(Scene* scene, const Vec2& position, const std::string& textureID) : scene_(scene), position_(position), textureID_(textureID)
 {
 }
-
 
 Entity::~Entity()
 {	

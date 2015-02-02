@@ -8,7 +8,7 @@ private:
 	std::string name_ = "";
 
 public:
-	Map(const std::string& name);
+	Map(Scene* scene, const std::string& name);
 
 	bool CanPlace(const Vec2& position);
 

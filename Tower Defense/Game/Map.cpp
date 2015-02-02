@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(const std::string& name) : Entity(), name_(name)
+Map::Map(Scene* scene, const std::string& name) : Entity(scene), name_(name)
 {
 	gfx->LoadTexture("Data/maps/" + name + "/colour.png", name + "colour");
 	gfx->LoadTexture("Data/maps/" + name + "/placement.png", name + "placement");

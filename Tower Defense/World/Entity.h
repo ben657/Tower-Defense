@@ -5,6 +5,8 @@
 #include <World/World.h>
 #include <Math/Vec2.h>
 
+class Scene;
+
 class Entity
 {
 protected:	
@@ -16,12 +18,12 @@ protected:
 
 	std::string tag_ = "";
 
-	
+	Scene* scene_ = nullptr;
 
 public:			
 	float rotation = 0.0f;
 
-	Entity(int x = 0, int y = 0, std::string textureID = "");
+	Entity(Scene* scene, const Vec2& position = Vec2(0.f, 0.f), const std::string& textureID = "");
 	virtual ~Entity();
 
 	void SetAnimID(int animID) { animID_ = animID; }
