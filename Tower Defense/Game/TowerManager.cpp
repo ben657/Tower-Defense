@@ -7,6 +7,7 @@ TowerManager::TowerManager(GameScene* scene, int initialNum)
 	towerDatas_["fireBall"] = TowerData();
 	towerDatas_["fireBall"].health = 10;
 	towerDatas_["fireBall"].attack = 2;
+	towerDatas_["fireBall"].range = 150.f;
 	towerDatas_["fireBall"].attackDelay = 0.5f;
 	towerDatas_["fireBall"].offset = Vec2(-16.f, -16.f);
 

@@ -5,8 +5,8 @@ GameScene::GameScene()
 	HAPI->SetShowFPS(true);
 
 	cManager_ = new CreepManager(this, 100);
-	tManager_ = new TowerManager(this, 100);
 	pManager_ = new ProjectileManager(100);
+	tManager_ = new TowerManager(this, 100);	
 
 	map = new Map((Scene*)this, "map1");
 	AddEntity(map);
@@ -68,7 +68,6 @@ void GameScene::Update(float delta)
 		if (map->CanPlace(input->MousePos()))
 		{
 			tManager_->NewTower("fireBall", input->MousePos());
-			pManager_->NewProjectile("fireBall", Vec2(800.f, 450.f), input->MousePos() - Vec2(800.f, 450.f));
 		}
 	}
 

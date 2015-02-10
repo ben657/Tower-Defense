@@ -1,6 +1,8 @@
 #pragma once
 
 #include <World/Entity.h>
+#include <Game/CreepManager.h>
+#include <Game/ProjectileManager.h>
 
 class GameScene;
 
@@ -8,6 +10,8 @@ class Tower : public Entity
 {
 private:
 	GameScene* gScene_ = nullptr;
+	CreepManager* cm_ = nullptr;
+	ProjectileManager* pm_ = nullptr;
 
 	int health_ = 0;
 	int damage_ = 0;
@@ -16,6 +20,8 @@ private:
 
 	int idleAnim_ = 0;
 	int fireAnim_ = 0;
+
+	float attackCD_ = 0.f;
 
 public:
 	bool active = false;

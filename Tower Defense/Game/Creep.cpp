@@ -1,7 +1,7 @@
 #include "Creep.h"
 #include <Game/GameScene.h>
 
-Creep::Creep(GameScene* scene, const std::string& textureID, int path) : Entity((Scene*)scene, Vec2(0.f, 0.f), textureID), gScene_(scene), path_(path)
+Creep::Creep(GameScene* scene, const std::string& textureID, int path) : Entity(), gScene_(scene), path_(path)
 {
 
 }

@@ -1,7 +1,7 @@
 #include "Entity.h"
 #include <World/Scene.h>
 
-Entity::Entity(Scene* scene, const Vec2& position, const std::string& textureID) : scene_(scene), position_(position), textureID_(textureID)
+Entity::Entity(const Vec2& position, const std::string& textureID) : position_(position), textureID_(textureID)
 {
 }
 

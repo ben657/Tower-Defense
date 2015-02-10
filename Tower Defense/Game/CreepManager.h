@@ -32,6 +32,7 @@ public:
 	~CreepManager();
 
 	void NewCreep(const std::string& type, int path);
+	Creep* GetFirstWithin(float range, const Vec2& position);
 
 	void Update(float delta);
 	void FixedUpdate();

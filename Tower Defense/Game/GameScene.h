@@ -32,6 +32,10 @@ public:
 
 	void SpawnCreep();
 
+	CreepManager* GetCM(){ return cManager_; }
+	TowerManager* GetTM(){ return tManager_; }
+	ProjectileManager* GetPM(){ return pManager_; }
+
 	Vec2 NextPoint(int path, int currentIndex);
 	Vec2 GetPoint(int path, int index){ return paths_[path][index]; };
 

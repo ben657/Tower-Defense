@@ -18,12 +18,10 @@ protected:
 
 	std::string tag_ = "";
 
-	Scene* scene_ = nullptr;
-
 public:			
 	float rotation = 0.0f;
 
-	Entity(Scene* scene, const Vec2& position = Vec2(0.f, 0.f), const std::string& textureID = "");
+	Entity(const Vec2& position = Vec2(0.f, 0.f), const std::string& textureID = "");
 	virtual ~Entity();
 
 	void SetAnimID(int animID) { animID_ = animID; }

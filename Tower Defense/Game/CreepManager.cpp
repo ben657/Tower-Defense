@@ -43,6 +43,20 @@ void CreepManager::NewCreep(const std::string& type, int path)
 	creep->SetStats(creepDatas_[type].health, creepDatas_[type].attack, creepDatas_[type].speed);
 }
 
+Creep* CreepManager::GetFirstWithin(float range, const Vec2& position)
+{
+	for (int i = 0; i < (int)creeps_.size(); i++)
+	{
+		Creep* creep = creeps_[i];
+		if (!creep->active)
+			continue;
+
+		if ((creep->GetPosition() - position).Length2() < range * range)
+			return creep;
+	}
+	return nullptr;
+}
+
 void CreepManager::Update(float delta)
 {
 	for (Creep* creep : creeps_)
