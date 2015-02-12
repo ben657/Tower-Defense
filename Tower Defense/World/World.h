@@ -18,18 +18,24 @@ private:
 	Scene* activeScene_ = nullptr;
 	float lastFrameTime_ = 0;
 	float frameTime_ = 0;
-	float delta_ = 1000.f / 60.f;	
+	float delta_ = 1000.f / 60.f;
+	float baseDelta_ = 1000.f / 60.f;
 	bool doFixedStep_ = true;
 
 protected:
 	World();
 
 public:	
+	Vec2 camPos;
+
 	static World* Instance();
 	~World();
 
 	void Initialise(int width, int height);
 	void Start();
+
+	void ChangeSpeedMult(float mult){ delta_ = baseDelta_ / mult; }
+	float GetFDelta(){ return baseDelta_; }
 
 	void AddScene(Scene* scene, std::string uid);
 	Scene* GetScene(std::string uid);

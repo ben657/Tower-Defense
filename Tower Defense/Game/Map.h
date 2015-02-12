@@ -12,6 +12,6 @@ public:
 
 	bool CanPlace(const Vec2& position);
 
+	void Update(float delta) override{};
 	void Draw() override;
 };
-

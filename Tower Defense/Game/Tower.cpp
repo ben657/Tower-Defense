@@ -24,15 +24,22 @@ void Tower::SetAnimations(int idle, int fire)
 	fireAnim_ = fire;
 }
 
-void Tower::SetStats(int health, int damage, float attackDelay, float range)
+void Tower::SetStats(int health, int damage, float attackDelay, float range, std::string projType)
 {
 	health_ = health;
 	damage_ = damage;
 	attackDelay_ = attackDelay;
 	range_ = range;
+	projType_ = projType;
 }
 
 void Tower::Update(float delta)
+{
+	if (!active)
+		return;		
+}
+
+void Tower::FixedUpdate()
 {
 	if (!active)
 		return;
@@ -43,19 +50,12 @@ void Tower::Update(float delta)
 		Creep* target = cm_->GetFirstWithin(range_, position_);
 		if (target != nullptr)
 		{
-			pm_->NewProjectile("fireBall", position_, (target->GetPosition() - position_).Normalised());
+			pm_->NewProjectile(projType_, position_, (target->GetPosition() - position_).Normalised());
 		}
 	}
-	attackCD_ -= delta;
-	
+	attackCD_ -= world->GetFDelta();
 
-	Entity::Update(delta);
-}
-
-void Tower::FixedUpdate()
-{
-	if (!active)
-		return;
+	Entity::FixedUpdate();
 }
 
 void Tower::Draw()

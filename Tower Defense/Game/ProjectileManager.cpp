@@ -1,18 +1,12 @@
 #include "ProjectileManager.h"
 
 
-ProjectileManager::ProjectileManager(int initialNum)
+ProjectileManager::ProjectileManager(GameScene* scene, int initialNum)
 {
-	//Temp data, will read from file eventually
-	projDatas_["fireBall"] = ProjectileData();
-	projDatas_["fireBall"].health = 10;
-	projDatas_["fireBall"].damage = 2;
-	projDatas_["fireBall"].speed = 5.f;
-	projDatas_["fireBall"].offset = Vec2(-16.f, -16.f);
-
 	for (int i = 0; i < initialNum; i++)
 	{
-		projs_.push_back(new Projectile());
+		projs_["fireBall"].push_back((Projectile*)new FireBall(scene));
+		projs_["lightning"].push_back(new Projectile(scene));
 	}
 }
 
@@ -20,48 +14,63 @@ ProjectileManager::~ProjectileManager()
 {
 }
 
-Projectile* ProjectileManager::GetFirstInactive()
+Projectile* ProjectileManager::GetFirstInactive(const std::string& type)
 {
-	for (int i = 0; i < (int)projs_.size(); i++)
+	for (int i = 0; i < projs_[type].size(); i++)
 	{
-		if (!projs_[i]->active)
-			return projs_[i];
+		Projectile* p = projs_[type][i];
+		if (!p->active)
+			return p;
 	}
+	return nullptr;
 }
 
-void ProjectileManager::NewProjectile(const std::string& type, const Vec2& position, const Vec2& direction)
+void ProjectileManager::NewProjectile(const std::string& type, const Vec2& position, const Vec2& direction, const char* data)
 {
-	Projectile* projectile = GetFirstInactive();
-	projectile->SetOffset(projDatas_[type].offset);
+	Projectile* projectile = GetFirstInactive(type);
+
+	if (projectile == nullptr)
+	{
+		HAPI->DebugText("ALL PROJECTILES IN USE!!");
+		return;
+	}
+
 	projectile->active = true;
-	projectile->Reset("proj_" + type, position, direction);
-	projectile->SetAnimID(projDatas_[type].anim);
-	projectile->SetStats(projDatas_[type].health, projDatas_[type].damage, projDatas_[type].speed);
+	projectile->Reset("proj_" + type, position, direction, data);
 }
 
 void ProjectileManager::Update(float delta)
 {
-	for (Projectile* projectile : projs_)
+	for (auto proj : projs_)
 	{
-		if (projectile->active)
-			projectile->Update(delta);
+		for (int i = 0; i < proj.second.size(); i++)
+		{
+			if (proj.second[i]->active)
+				proj.second[i]->Update(delta);
+		}
 	}
 }
 
 void ProjectileManager::FixedUpdate()
 {
-	for (Projectile* projectile : projs_)
+	for (auto proj : projs_)
 	{
-		if (projectile->active)
-			projectile->FixedUpdate();
+		for (int i = 0; i < proj.second.size(); i++)
+		{
+			if (proj.second[i]->active)
+				proj.second[i]->FixedUpdate();
+		}
 	}
 }
 
 void ProjectileManager::Draw()
 {
-	for (Projectile* projectile : projs_)
+	for (auto proj : projs_)
 	{
-		if (projectile->active)
-			projectile->Draw();
+		for (int i = 0; i < proj.second.size(); i++)
+		{
+			if (proj.second[i]->active)
+				proj.second[i]->Draw();
+		}
 	}
 }

@@ -15,6 +15,7 @@ protected:
 
 	int health_ = 0;
 	int damage_ = 0;
+	int reward_ = 0;
 	float speed_ = 0.f;
 
 	int idleAnim_ = 0;
@@ -27,9 +28,13 @@ public:
 	Creep(GameScene* scene, const std::string& textureID = "", int path = 0);
 	~Creep();
 
+	int GetReward(){ return reward_; }
+
 	void Reset(const std::string& textureID = "", int path = 0);
 	void SetAnimations(int idle, int move, int attack);
-	void SetStats(int health, int damage, float speed);
+	void SetStats(int health, int damage, int reward, float speed);
+
+	void Hurt(int amount){ health_ -= amount; }
 
 	void Update(float delta) override;
 	void FixedUpdate() override;

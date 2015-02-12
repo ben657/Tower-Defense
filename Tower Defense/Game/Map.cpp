@@ -15,5 +15,5 @@ bool Map::CanPlace(const Vec2& position)
 
 void Map::Draw()
 {
-	gfx->Blit(position_, textureID_, 1600, 900);
+	gfx->ClipBlit(position_ - world->camPos, textureID_, 0, 0);
 }

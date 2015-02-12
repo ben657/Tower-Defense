@@ -31,6 +31,7 @@ public:
 
 	void Blit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, int width, int height);
 	void Blit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, const float angle);
+	void ClipBlit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, int width, int height);
 	void BlitAlpha(const Vec2& position, BYTE* screenPtr, const Rect& screenRect);
 	void BlitAnimated(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, Animation* animation);
 };

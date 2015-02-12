@@ -9,7 +9,7 @@ void HAPI_Main()
 {
 	world->Initialise(1600, 900);
 
-	GameScene* gameScene = new GameScene();
+	GameScene* gameScene = new GameScene("map2");
 
 	world->AddScene(gameScene, "GameScene");
 	world->SetActiveScene("GameScene");

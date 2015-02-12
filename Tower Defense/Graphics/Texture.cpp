@@ -92,6 +92,35 @@ void Texture::Blit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect
 	}
 }
 
+void Texture::ClipBlit(const Vec2& position, BYTE* screenPtr, const Rect& screenRect, int width, int height)
+{
+	int aWidth = width > 0 ? width : width_;
+	int aHeight = height > 0 ? height : height_;
+
+	Rect texRect((int)position.x_, (int)position.y_, aWidth, aHeight);
+
+	if (!texRect.Intersects(screenRect))
+		return;
+
+	texRect.ClipTo(screenRect);
+
+	BYTE* screenOffset = screenPtr + (texRect.left_ + texRect.top_ * screenRect.Width()) * 4;
+	BYTE* texOffset = data_ + ((texRect.left_ - (int)position.x_) + (texRect.top_ - (int)position.y_) * width_) * 4;
+
+	int bytesWide = texRect.Width() * 4;
+
+	int lineJump = screenRect.Width() * 4;
+	int texJump = width_ * 4;
+
+	for (int tY = 0; tY < texRect.Height(); tY++)
+	{
+		memcpy(screenOffset, texOffset, bytesWide);
+		
+		texOffset += texJump;
+		screenOffset += lineJump;
+	}
+}
+
 void Texture::BlitAlpha(const Vec2& position, BYTE* screenPtr, const Rect& screenRect)
 {
 	Rect texRect((int)position.x_, (int)position.y_, width_, height_);

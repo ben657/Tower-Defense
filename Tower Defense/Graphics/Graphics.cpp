@@ -126,6 +126,16 @@ void Graphics::Blit(const Vec2& position, const std::string& uid, const float an
 	texture->Blit(position, screenPtr_, screenRect, angle);
 }
 
+void Graphics::ClipBlit(const Vec2& position, const std::string& uid, int width, int height)
+{
+	if (textures_.find(uid) == textures_.end())
+		return;
+
+	Texture* texture = textures_[uid];
+	Rect screenRect(0, 0, scrWidth_, scrHeight_);
+	texture->ClipBlit(position, screenPtr_, screenRect, width, height);
+}
+
 void Graphics::BlitRect(const Vec2& position, int width, int height, const Colour& colour)
 {
 	int lineJump = (scrWidth_ - width) * 4;
@@ -268,4 +278,9 @@ void Graphics::BlitLine(const Vec2& p1, const Vec2& p2, const Colour& colour) //
 			}
 		}
 	}
+}
+
+void Graphics::BlitText(const Vec2& position, const std::string& text, const Colour& colour)
+{
+	HAPI->RenderText(position.x_, position.y_, HAPI_TColour(colour.r, colour.g, colour.b), text);
 }

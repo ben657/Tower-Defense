@@ -19,4 +19,3 @@ public:
 	virtual void FixedUpdate();
 	virtual void Draw();
 };
-

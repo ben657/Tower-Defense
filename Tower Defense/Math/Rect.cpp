@@ -10,7 +10,7 @@ Rect::~Rect()
 {
 }
 
-bool Rect::Intersects(const Rect& other)
+bool Rect::Intersects(const Rect& other) const
 {
 	return (left_ < other.right_ && right_ > other.left_ && top_ < other.bottom_ && bottom_ > other.top_);
 }
@@ -28,6 +28,16 @@ void Rect::ClipTo(const Rect& other)
 
 	if (bottom_ > other.bottom_)
 		bottom_ = other.bottom_;
+}
+
+void Rect::MoveTo(int x, int y)
+{
+	int xDiff = x - left_;
+	int yDiff = y - top_;
+	left_ += xDiff;
+	top_ += yDiff;
+	right_ += xDiff;
+	bottom_ += yDiff;
 }
 
 int Rect::Width() const

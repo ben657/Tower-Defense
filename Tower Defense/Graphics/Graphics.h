@@ -60,9 +60,11 @@ public:
 
 	void Blit(const Vec2& position, const std::string& uid, int width, int height);
 	void Blit(const Vec2& position, const std::string& uid, const float angle);
+	void ClipBlit(const Vec2& position, const std::string& uid, int width, int height);
 	void BlitRect(const Vec2& position, int width, int height, const Colour& colour);
 	void BlitAlpha(const Vec2& position, const std::string& uid);
 	void BlitAnimated(const Vec2& position, const std::string& texID, const int animID);
+	void BlitText(const Vec2& position, const std::string& text, const Colour& colour);
 
 	void BlitLine(const Vec2& p1, const Vec2& p2, const Colour& colour);
 };

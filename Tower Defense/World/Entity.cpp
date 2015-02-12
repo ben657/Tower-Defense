@@ -9,14 +9,26 @@ Entity::~Entity()
 {	
 }
 
-void Entity::Update(float delta)
+void Entity::SetHitbox(int x, int y, int width, int height)
 {
-	gfx->UpdateAnimation(animID_, delta);
+	hitbox_ = Rect(0, 0, width, height);
+	hitboxOffset_ = Vec2(x, y);
+}
+
+Rect& Entity::GetHitbox()
+{
+	hitbox_.MoveTo(position_.x_ + hitboxOffset_.x_, position_.y_ + hitboxOffset_.y_);
+	return hitbox_;
+}
+
+void Entity::FixedUpdate()
+{
+	gfx->UpdateAnimation(animID_, world->GetFDelta());
 }
 
 void Entity::Draw()
 {	
-	Vec2 drawPos = position_ + offset_;
+	Vec2 drawPos = (position_ + offset_) - world->camPos;
 
 	if (animID_ < 0)
 	{
@@ -27,4 +39,13 @@ void Entity::Draw()
 	}
 	else
 		gfx->BlitAnimated(drawPos, textureID_, animID_);
+
+	if (drawhb)
+	{
+		Rect hb = GetHitbox();
+		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.right_, hb.top_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.left_, hb.bottom_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2(hb.right_, hb.top_), Vec2(hb.right_, hb.bottom_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2(hb.left_, hb.bottom_), Vec2(hb.right_, hb.bottom_), Colour(255, 0, 0));
+	}
 }

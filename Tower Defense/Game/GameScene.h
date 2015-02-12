@@ -16,26 +16,40 @@ enum TurretType
 class GameScene : public Scene
 {
 private:
+	int plMoney = 100;
+	int plHealth = 20;
+
+	int numPaths = 0;
+
 	Map* map;
 	std::vector<std::vector<Vec2>> paths_;
-	int* pathLengths_;
+	std::vector<int> pathLengths_;
 
 	CreepManager* cManager_ = nullptr;
 	TowerManager* tManager_ = nullptr;
 	ProjectileManager* pManager_ = nullptr;
 
+	int wave = 0;
+
+	float spawnCD = 0.f;
+	float mult = 1.0f;
+
 public:
-	GameScene();
+	GameScene(const std::string& mapName);
 	~GameScene();
 
 	bool PlaceTurret(const Vec2& position);
 
-	void SpawnCreep();
+	void SpawnWave();
+
+	void AddMoney(int amount){ plMoney += amount; }
+	void RemHealth(int amount){ plHealth -= amount; }
 
 	CreepManager* GetCM(){ return cManager_; }
 	TowerManager* GetTM(){ return tManager_; }
 	ProjectileManager* GetPM(){ return pManager_; }
 
+	bool LastPoint(int path, int currentIndex){ return paths_[path].size() - 1 == currentIndex; }
 	Vec2 NextPoint(int path, int currentIndex);
 	Vec2 GetPoint(int path, int index){ return paths_[path][index]; };
 

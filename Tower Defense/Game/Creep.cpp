@@ -27,10 +27,11 @@ void Creep::SetAnimations(int idle, int move, int attack)
 	attackAnim_ = attack;
 }
 
-void Creep::SetStats(int health, int damage, float speed)
+void Creep::SetStats(int health, int damage, int reward, float speed)
 {
 	health_ = health;
 	damage_ = damage;
+	reward_ = reward;
 	speed_ = speed;
 }
 
@@ -38,14 +39,19 @@ void Creep::Update(float delta)
 {
 	if (!active)
 		return;
-
-	Entity::Update(delta);
 }
 
 void Creep::FixedUpdate()
 {
 	if (!active)
 		return;
+
+	if (health_ <= 0)
+	{
+		active = false;
+		gScene_->AddMoney(reward_);
+		return;
+	}
 
 	Vec2 direction = pathPoint_ - position_;
 	direction.Normalise();
@@ -54,13 +60,25 @@ void Creep::FixedUpdate()
 
 	float dist2 = (pathPoint_ - position_).Length();
 
-	if (dist2 < .4f)
+	if (dist2 < 1.f)
 	{
 		position_ = pathPoint_;
+		
+		Vec2 nextp = gScene_->NextPoint(path_, pathIndex_);
 
-		pathPoint_ = gScene_->NextPoint(path_, pathIndex_);
+		if (gScene_->LastPoint(path_, pathIndex_))
+		{
+			gScene_->RemHealth(damage_);
+			active = false;
+			return;
+		}
+
+		pathPoint_ = nextp;
+		
 		pathIndex_++;
 	}
+
+	Entity::FixedUpdate();
 }
 
 void Creep::Draw()

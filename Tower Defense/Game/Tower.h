@@ -1,6 +1,6 @@
 #pragma once
 
-#include <World/Entity.h>
+#include <World/Scene.h>
 #include <Game/CreepManager.h>
 #include <Game/ProjectileManager.h>
 
@@ -17,6 +17,7 @@ private:
 	int damage_ = 0;
 	float range_ = 0.f;
 	float attackDelay_ = 0.f;
+	std::string projType_ = "";
 
 	int idleAnim_ = 0;
 	int fireAnim_ = 0;
@@ -31,7 +32,7 @@ public:
 
 	void Reset(const std::string& textureID = "", const Vec2& position = Vec2(0.f, 0.f));
 	void SetAnimations(int idle, int fire);
-	void SetStats(int health, int damage, float attackDelay, float range);
+	void SetStats(int health, int damage, float attackDelay, float range, std::string projType);
 
 	void Update(float delta) override;
 	void FixedUpdate() override;
