@@ -29,7 +29,7 @@ void Entity::FixedUpdate()
 void Entity::Draw()
 {	
 	Vec2 drawPos = (position_ + offset_) - world->camPos;
-
+	
 	if (animID_ < 0)
 	{
 		if (rotation == 0.0f)
@@ -43,6 +43,7 @@ void Entity::Draw()
 	if (drawhb)
 	{
 		Rect hb = GetHitbox();
+		hb.MoveTo(drawPos.x_, drawPos.y_);
 		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.right_, hb.top_), Colour(255, 0, 0));
 		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.left_, hb.bottom_), Colour(255, 0, 0));
 		gfx->BlitLine(Vec2(hb.right_, hb.top_), Vec2(hb.right_, hb.bottom_), Colour(255, 0, 0));

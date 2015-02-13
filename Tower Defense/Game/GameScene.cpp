@@ -17,6 +17,7 @@ GameScene::GameScene(const std::string& mapName)
 	cManager_->LoadCreepData("unicorn");
 
 	tManager_->LoadTowerData("fireBall");
+	tManager_->LoadTowerData("lightning");
 
 	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
 
@@ -65,11 +66,14 @@ bool GameScene::PlaceTurret(const Vec2& position)
 
 void GameScene::SpawnWave()
 {
+	numCreeps = 0;
 	wave++;
 	int maxDifficulty = wave * 50;
 	int waveDifficulty = 0;
+	cManager_->spawnDelay_ = 500.f;
 	while (waveDifficulty < maxDifficulty)
 	{
+		numCreeps++;
 		waveDifficulty += cManager_->QRandom(rand() % numPaths);
 	}
 }
@@ -116,7 +120,11 @@ void GameScene::Update(float delta)
 	}
 	if (input->KeyJustDown('3'))
 	{
-		world->ChangeSpeedMult(10.f);
+		world->ChangeSpeedMult(4.f);
+	}
+	if (input->KeyJustDown(' '))
+	{
+		world->ToggleFixedStep();
 	}
 
 	//replace 2048 with mapWidth, 1600 with scrWidth at some point
@@ -132,15 +140,28 @@ void GameScene::Update(float delta)
 
 	if (input->MouseBtnJustDown(0))
 	{
-		if (map->CanPlace(input->MousePos()))
+		Vec2 pos = input->MousePos() + world->camPos;
+		if (map->CanPlace(pos))
 		{
 			if (plMoney >= tManager_->GetCost("fireBall"))
-			{
-				tManager_->NewTower("fireBall", input->MousePos());
+			{				
+				tManager_->NewTower("fireBall", pos);
 				plMoney -= tManager_->GetCost("fireBall");
 			}
 		}
 	}	
+	if (input->MouseBtnJustDown(1))
+	{
+		Vec2 pos = input->MousePos() + world->camPos;
+		if (map->CanPlace(pos))
+		{
+			if (plMoney >= tManager_->GetCost("lightning"))
+			{
+				tManager_->NewTower("lightning", pos);
+				plMoney -= tManager_->GetCost("lightning");
+			}
+		}
+	}
 
 	tManager_->Update(delta);
 	cManager_->Update(delta);
@@ -169,5 +190,6 @@ void GameScene::Draw()
 	pManager_->Draw();
 	gfx->BlitText(Vec2(10, 10), "Money: " + std::to_string(plMoney), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 35), "Health: " + std::to_string(plHealth), Colour(0, 0, 0));
-	gfx->BlitText(Vec2(10, 50), "Wave: " + std::to_string(wave), Colour(0, 0, 0));
+	gfx->BlitText(Vec2(10, 60), "Wave: " + std::to_string(wave), Colour(0, 0, 0));
+	gfx->BlitText(Vec2(10, 85), "Creeps left: " + std::to_string(numCreeps), Colour(0, 0, 0));
 }

@@ -20,7 +20,7 @@ private:
 	int plHealth = 20;
 
 	int numPaths = 0;
-
+	int numCreeps = 0;
 	Map* map;
 	std::vector<std::vector<Vec2>> paths_;
 	std::vector<int> pathLengths_;
@@ -42,7 +42,7 @@ public:
 
 	void SpawnWave();
 
-	void AddMoney(int amount){ plMoney += amount; }
+	void AddMoney(int amount){ plMoney += amount; numCreeps--; }
 	void RemHealth(int amount){ plHealth -= amount; }
 
 	CreepManager* GetCM(){ return cManager_; }

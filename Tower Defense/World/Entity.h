@@ -23,7 +23,7 @@ protected:
 
 public:			
 	float rotation = 0.0f;
-	bool drawhb = true;
+	bool drawhb = false;
 	Entity(const Vec2& position = Vec2(0.f, 0.f), const std::string& textureID = "");
 	virtual ~Entity();
 

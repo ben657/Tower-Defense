@@ -13,6 +13,9 @@ private:
 	int width_ = 0;
 	int height_ = 0;
 
+	int drawWidth_ = 0;
+	int drawHeight_ = 0;
+
 	BYTE* data_ = nullptr;
 
 public:
