@@ -38,6 +38,8 @@ public:
 	GameScene(const std::string& mapName);
 	~GameScene();
 
+	void SwitchedTo(const std::string& from, void* data) override;
+
 	void SpawnWave();
 
 	void AddMoney(int amount){ plMoney += amount; numCreeps--; }

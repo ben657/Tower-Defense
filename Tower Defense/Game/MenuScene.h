@@ -17,5 +17,7 @@ public:
 	~MenuScene();
 
 	void Update(float delta) override;
+
+	void* SwitchedFrom(const std::string& to) override;
 };
 

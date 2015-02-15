@@ -2,29 +2,37 @@
 
 GameScene::GameScene(const std::string& mapName)
 {
-	srand(time(0));
+	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
+	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");	
+}
 
-	HAPI->SetShowFPS(true);
+GameScene::~GameScene()
+{
+
+}
+
+void GameScene::SwitchedTo(const std::string& from, void* data)
+{
+	std::string mapName = std::string((char*)data);
+
+	srand(time(0));
 
 	cManager_ = new CreepManager(this, 1000);
 	pManager_ = new ProjectileManager(this, 100);
-	tManager_ = new TowerManager(this, 100);	
+	tManager_ = new TowerManager(this, 100);
 
 	map = new Map((Scene*)this, mapName);
 
 	cManager_->LoadCreepData("bunny");
 	cManager_->LoadCreepData("unicorn");
 
-	tManager_->LoadTowerData("fireBall");	
+	tManager_->LoadTowerData("fireBall");
 	tManager_->LoadTowerData("lightning");
-
-	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
-	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");
 
 	std::ifstream pathFile;
 	pathFile.open("Data/maps/" + mapName + "/paths.txt");
 
-	pathFile >> numPaths;	
+	pathFile >> numPaths;
 	paths_.resize(numPaths);
 	for (int i = 0; i < numPaths; i++)
 	{
@@ -47,8 +55,6 @@ GameScene::GameScene(const std::string& mapName)
 
 	pathFile.close();
 
-	SpawnWave();
-
 	towerMenuBtn = new Button(Rect(0, gfx->GetHeight() - 64, 64, 64), "Towers", Colour(255, 0, 0));
 	towerMenuBtn->iconOffset_ = Vec2(4.f, 4.f);
 	towerMenuBtn->SetTextureID("icon_tower");
@@ -56,16 +62,14 @@ GameScene::GameScene(const std::string& mapName)
 	for (int i = 0; i < tManager_->towerTypes_.size(); i++)
 	{
 		Button* twrBtn = new Button(Rect(74 + (i)* 58, gfx->GetHeight() - 32 - 24, 48, 48), "tower", Colour(0, 0, 255));
+		twrBtn->visible_ = false;
 		twrBtn->iconOffset_ = Vec2(4.f, 4.f);
 		twrBtn->SetTextureID("icon_" + tManager_->towerTypes_[i]);
 		AddEntity(twrBtn);
 		towerBtns.push_back(twrBtn);
 	}
-}
 
-GameScene::~GameScene()
-{
-
+	SpawnWave();
 }
 
 void GameScene::SpawnWave()
