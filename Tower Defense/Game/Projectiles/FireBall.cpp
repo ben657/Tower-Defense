@@ -9,9 +9,9 @@ FireBall::FireBall(GameScene* scene) : Projectile(scene)
 	speed_ = 5.f;
 }
 
-void FireBall::Reset(const std::string& textureID, const Vec2& position, const Vec2& direction, const char* data)
+void FireBall::Reset(const std::string& textureID, const Vec2& position, const Vec2& target, const Vec2& direction)
 {
-	Projectile::Reset(textureID, position, direction, data);
+	Projectile::Reset(textureID, position, target, direction);
 }
 
 void FireBall::FixedUpdate()
@@ -36,9 +36,4 @@ void FireBall::FixedUpdate()
 		active = false;
 
 	Entity::FixedUpdate();
-}
-
-void FireBall::Draw()
-{
-	Projectile::Draw();
 }

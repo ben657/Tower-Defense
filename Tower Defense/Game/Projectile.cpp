@@ -11,11 +11,12 @@ Projectile::~Projectile()
 {
 }
 
-void Projectile::Reset(const std::string& textureID, const Vec2& position, const Vec2& direction, const char* data)
+void Projectile::Reset(const std::string& textureID, const Vec2& position, const Vec2& target, const Vec2& direction)
 {
 	textureID_ = textureID;
 	position_ = position;
-	direction_ = direction.Normalised();
+	target_ = target;
+	direction_ = direction;
 }
 
 void Projectile::Update(float delta)

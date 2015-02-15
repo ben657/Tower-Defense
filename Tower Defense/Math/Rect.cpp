@@ -10,6 +10,11 @@ Rect::~Rect()
 {
 }
 
+bool Rect::Contains(const Vec2& point) const
+{
+	return (point.x_ > left_ && point.x_ < right_ && point.y_ > top_ && point.y_ < bottom_);
+}
+
 bool Rect::Intersects(const Rect& other) const
 {
 	return (left_ < other.right_ && right_ > other.left_ && top_ < other.bottom_ && bottom_ > other.top_);

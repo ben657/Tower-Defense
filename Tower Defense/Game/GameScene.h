@@ -5,13 +5,9 @@
 #include <Game/CreepManager.h>
 #include <Game/TowerManager.h>
 #include <Game/ProjectileManager.h>
+#include <UI/Button.h>
 #include <Input.h>
 #include <fstream>
-
-enum TurretType
-{
-
-};
 
 class GameScene : public Scene
 {
@@ -29,6 +25,10 @@ private:
 	TowerManager* tManager_ = nullptr;
 	ProjectileManager* pManager_ = nullptr;
 
+	Button* towerMenuBtn = nullptr;
+	std::vector<Button*> towerBtns;
+	std::string placingTower = "";
+
 	int wave = 0;
 
 	float spawnCD = 0.f;
@@ -37,8 +37,6 @@ private:
 public:
 	GameScene(const std::string& mapName);
 	~GameScene();
-
-	bool PlaceTurret(const Vec2& position);
 
 	void SpawnWave();
 

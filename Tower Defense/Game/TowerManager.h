@@ -29,12 +29,14 @@ class TowerManager
 private:
 	GameScene* scene_ = nullptr;
 
-	std::map<std::string, TowerData> towerDatas_;
+	std::map<std::string, TowerData> towerDatas_;	
 	std::vector<Tower*> towers_;
 
 	Tower* GetFirstInactive();
 
 public:
+	std::vector<std::string> towerTypes_;
+
 	TowerManager(GameScene* scene, int initialNum);
 	~TowerManager();
 

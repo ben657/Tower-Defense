@@ -113,6 +113,7 @@ Creep* CreepManager::GetFirstWithin(float range, const Vec2& position)
 		if (dist2 < closestDist2)
 		{	
 			closest = creep;
+			closestDist2 = dist2;
 		}
 	}
 	return closest;

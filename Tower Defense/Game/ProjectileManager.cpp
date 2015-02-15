@@ -6,7 +6,7 @@ ProjectileManager::ProjectileManager(GameScene* scene, int initialNum)
 	for (int i = 0; i < initialNum; i++)
 	{
 		projs_["fireBall"].push_back((Projectile*)new FireBall(scene));
-		projs_["lightning"].push_back(new Projectile(scene));
+		projs_["lightning"].push_back((Projectile*) new Lightning(scene));
 	}
 }
 
@@ -25,7 +25,7 @@ Projectile* ProjectileManager::GetFirstInactive(const std::string& type)
 	return nullptr;
 }
 
-void ProjectileManager::NewProjectile(const std::string& type, const Vec2& position, const Vec2& direction, const char* data)
+void ProjectileManager::NewProjectile(const std::string& type, const Vec2& position, const Vec2& target, const Vec2& direction)
 {
 	Projectile* projectile = GetFirstInactive(type);
 
@@ -36,7 +36,7 @@ void ProjectileManager::NewProjectile(const std::string& type, const Vec2& posit
 	}
 
 	projectile->active = true;
-	projectile->Reset("proj_" + type, position, direction, data);
+	projectile->Reset("proj_" + type, position, target, direction);
 }
 
 void ProjectileManager::Update(float delta)

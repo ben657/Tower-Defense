@@ -25,7 +25,9 @@ Tower* TowerManager::GetFirstInactive()
 void TowerManager::LoadTowerData(const std::string& name)
 {
 	gfx->LoadTexture("Data/towers/" + name + ".png", "tower_" + name);
+	gfx->LoadTexture("Data/icons/" + name + ".png", "icon_" + name);
 	towerDatas_[name] = TowerData();
+	towerTypes_.push_back(name);
 
 	std::ifstream file;
 	file.open("Data/towers/" + name + ".txt");

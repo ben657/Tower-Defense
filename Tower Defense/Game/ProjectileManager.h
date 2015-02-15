@@ -3,6 +3,7 @@
 #include <Game/Projectile.h>
 
 #include <Game/Projectiles/FireBall.h>
+#include <Game/Projectiles/Lightning.h>
 
 #include <vector>
 #include <map>
@@ -30,7 +31,7 @@ public:
 	ProjectileManager(GameScene* scene, int initialNum);
 	~ProjectileManager();
 
-	void NewProjectile(const std::string& type, const Vec2& position, const Vec2& direction, const char* data = nullptr);
+	void NewProjectile(const std::string& type, const Vec2& position, const Vec2& target, const Vec2& direction);
 
 	void Update(float delta);
 	void FixedUpdate();

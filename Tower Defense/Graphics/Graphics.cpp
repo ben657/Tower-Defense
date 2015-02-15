@@ -3,6 +3,7 @@
 #include <Graphics/Texture.h>
 #include <Graphics/Animation.h>
 #include <Math/Rect.h>
+#include <World/World.h>
 
 Graphics* Graphics::instance_ = nullptr;
 
@@ -36,6 +37,7 @@ void Graphics::Initialise(int screenWidth, int screenHeight)
 {
 	scrWidth_ = screenWidth;
 	scrHeight_ = screenHeight;
+	screenRect = Rect(0, 0, scrWidth_, scrHeight_);
 
 	if (!HAPI->Initialise(&scrWidth_, &scrHeight_))
 		return;
@@ -112,7 +114,6 @@ void Graphics::Blit(const Vec2& position, const std::string& uid, int width = 0,
 		return;
 
 	Texture* texture = textures_[uid];
-	Rect screenRect(0, 0, scrWidth_, scrHeight_);
 	texture->Blit(position, screenPtr_, screenRect, width, height);
 }
 
@@ -122,33 +123,40 @@ void Graphics::Blit(const Vec2& position, const std::string& uid, const float an
 		return;
 
 	Texture* texture = textures_[uid];
-	Rect screenRect(0, 0, scrWidth_, scrHeight_);
 	texture->Blit(position, screenPtr_, screenRect, angle);
 }
 
 void Graphics::ClipBlit(const Vec2& position, const std::string& uid, int width, int height)
-{
+{	
 	if (textures_.find(uid) == textures_.end())
 		return;
 
 	Texture* texture = textures_[uid];
-	Rect screenRect(0, 0, scrWidth_, scrHeight_);
 	texture->ClipBlit(position, screenPtr_, screenRect, width, height);
 }
 
-void Graphics::BlitRect(const Vec2& position, int width, int height, const Colour& colour)
+void Graphics::BlitRect(Rect rect, const Colour& colour)
 {
-	int lineJump = (scrWidth_ - width) * 4;
-	BYTE* currPos = screenPtr_ + ((int)position.x_ + (int)position.y_ * scrWidth_) * 4;
 
-	for (int y = 0; y < height; y++)
+	if (!rect.Intersects(screenRect))
+		return;
+
+	rect.ClipTo(screenRect);
+
+	BYTE* screenOffset = screenPtr_ + (rect.left_ + rect.top_ * screenRect.Width()) * 4;	
+
+	int bytesWide = rect.Width() * 4;
+
+	int lineJump = screenRect.Width() * 4 - rect.Width() * 4;
+	
+	for (int y = 0; y < rect.Height(); y++)	
 	{
-		for (int x = 0; x < width; x++)
+		for (int x = 0; x < rect.Width(); x++)
 		{
-			memcpy(currPos, &colour, 4);
-			currPos += 4;
+			memcpy(screenOffset, &colour, 4);
+			screenOffset += 4;
 		}
-		currPos += lineJump;
+		screenOffset += lineJump;
 	}
 }
 

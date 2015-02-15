@@ -13,7 +13,8 @@ protected:
 	int health_ = 0;
 	int damage_ = 0;	
 	float speed_ = 0.f;	
-	Vec2 direction_;	
+	Vec2 target_;	
+	Vec2 direction_;
 
 	CreepManager* cm_ = nullptr;
 
@@ -23,7 +24,7 @@ public:
 	Projectile(GameScene* scene, const std::string& textureID = "");
 	virtual ~Projectile();
 
-	virtual void Reset(const std::string& textureID = "", const Vec2& position = Vec2(0.f, 0.f), const Vec2& direction = Vec2(0.f, 0.f), const char* data = nullptr);
+	virtual void Reset(const std::string& textureID = "", const Vec2& position = Vec2(0.f, 0.f), const Vec2& target = Vec2(0.f, 0.f), const Vec2& direction = Vec2(0.f, 0.f));
 
 	void Update(float delta) override;
 	void FixedUpdate() override;

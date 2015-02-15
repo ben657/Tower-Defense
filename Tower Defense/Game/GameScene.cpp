@@ -11,15 +11,15 @@ GameScene::GameScene(const std::string& mapName)
 	tManager_ = new TowerManager(this, 100);	
 
 	map = new Map((Scene*)this, mapName);
-	AddEntity(map);
 
 	cManager_->LoadCreepData("bunny");
 	cManager_->LoadCreepData("unicorn");
 
-	tManager_->LoadTowerData("fireBall");
+	tManager_->LoadTowerData("fireBall");	
 	tManager_->LoadTowerData("lightning");
 
 	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
+	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");
 
 	std::ifstream pathFile;
 	pathFile.open("Data/maps/" + mapName + "/paths.txt");
@@ -48,6 +48,19 @@ GameScene::GameScene(const std::string& mapName)
 	pathFile.close();
 
 	SpawnWave();
+
+	towerMenuBtn = new Button(Rect(0, gfx->GetHeight() - 64, 64, 64), "Towers", Colour(255, 0, 0));
+	towerMenuBtn->iconOffset_ = Vec2(4.f, 4.f);
+	towerMenuBtn->SetTextureID("icon_tower");
+	AddEntity(towerMenuBtn);
+	for (int i = 0; i < tManager_->towerTypes_.size(); i++)
+	{
+		Button* twrBtn = new Button(Rect(74 + (i)* 58, gfx->GetHeight() - 32 - 24, 48, 48), "tower", Colour(0, 0, 255));
+		twrBtn->iconOffset_ = Vec2(4.f, 4.f);
+		twrBtn->SetTextureID("icon_" + tManager_->towerTypes_[i]);
+		AddEntity(twrBtn);
+		towerBtns.push_back(twrBtn);
+	}
 }
 
 GameScene::~GameScene()
@@ -55,22 +68,13 @@ GameScene::~GameScene()
 
 }
 
-bool GameScene::PlaceTurret(const Vec2& position)
-{
-	if (!map->CanPlace(position))
-		return false;
-
-	//Make turret
-	return true;
-}
-
 void GameScene::SpawnWave()
 {
 	numCreeps = 0;
 	wave++;
-	int maxDifficulty = wave * 50;
+	int maxDifficulty = wave * 500;
 	int waveDifficulty = 0;
-	cManager_->spawnDelay_ = 500.f;
+	cManager_->spawnDelay_ = 100.f;
 	while (waveDifficulty < maxDifficulty)
 	{
 		numCreeps++;
@@ -92,6 +96,33 @@ Vec2 GameScene::NextPoint(int path, int currentIndex)
 void GameScene::Update(float delta)
 {
 	Scene::Update(delta);	
+
+	if (input->MouseBtnJustDown(0) && placingTower != "")
+	{
+		Vec2 pos = input->MousePos() + world->camPos;
+		if (map->CanPlace(pos))
+		{
+			tManager_->NewTower(placingTower, pos);
+			placingTower = "";
+		}
+	}
+
+	if (towerMenuBtn->justPressed_)
+	{
+		for (int i = 0; i < towerBtns.size(); i++)
+		{
+			towerBtns[i]->visible_ = !towerBtns[i]->visible_;
+		}
+	}
+
+	for (int i = 0; i < towerBtns.size(); i++)
+	{
+		if (towerBtns[i]->justPressed_)
+		{
+			placingTower = tManager_->towerTypes_[i];
+			break;
+		}
+	}
 
 	if (input->KeyDown('A'))
 	{
@@ -136,32 +167,7 @@ void GameScene::Update(float delta)
 	if (world->camPos.y_ < 0)
 		world->camPos.y_ = 0;
 	if (world->camPos.y_ > 1024 - 900)
-		world->camPos.y_ = 1024 - 900;
-
-	if (input->MouseBtnJustDown(0))
-	{
-		Vec2 pos = input->MousePos() + world->camPos;
-		if (map->CanPlace(pos))
-		{
-			if (plMoney >= tManager_->GetCost("fireBall"))
-			{				
-				tManager_->NewTower("fireBall", pos);
-				plMoney -= tManager_->GetCost("fireBall");
-			}
-		}
-	}	
-	if (input->MouseBtnJustDown(1))
-	{
-		Vec2 pos = input->MousePos() + world->camPos;
-		if (map->CanPlace(pos))
-		{
-			if (plMoney >= tManager_->GetCost("lightning"))
-			{
-				tManager_->NewTower("lightning", pos);
-				plMoney -= tManager_->GetCost("lightning");
-			}
-		}
-	}
+		world->camPos.y_ = 1024 - 900;	
 
 	tManager_->Update(delta);
 	cManager_->Update(delta);
@@ -183,8 +189,8 @@ void GameScene::FixedUpdate()
 }
 
 void GameScene::Draw()
-{	
-	Scene::Draw();
+{		
+	map->Draw();
 	cManager_->Draw();
 	tManager_->Draw();
 	pManager_->Draw();
@@ -192,4 +198,5 @@ void GameScene::Draw()
 	gfx->BlitText(Vec2(10, 35), "Health: " + std::to_string(plHealth), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 60), "Wave: " + std::to_string(wave), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 85), "Creeps left: " + std::to_string(numCreeps), Colour(0, 0, 0));
+	Scene::Draw();
 }

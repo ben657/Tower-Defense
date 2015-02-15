@@ -4,6 +4,7 @@
 
 Tower::Tower(GameScene* scene, const std::string& textureID) : Entity(Vec2(0.f, 0.f), textureID), gScene_(scene)
 {
+	animID_ = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
 	cm_ = gScene_->GetCM();
 	pm_ = gScene_->GetPM();
 }
@@ -50,7 +51,7 @@ void Tower::FixedUpdate()
 		Creep* target = cm_->GetFirstWithin(range_, position_);
 		if (target != nullptr)
 		{
-			pm_->NewProjectile(projType_, position_, (target->GetPosition() - position_).Normalised());
+			pm_->NewProjectile(projType_, position_, target->GetPosition(), (target->GetPosition() - position_).Normalised());
 		}
 	}
 	attackCD_ -= world->GetFDelta();

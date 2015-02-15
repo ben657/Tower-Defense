@@ -41,8 +41,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(DXSDK_DIR)Include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
-    <LibraryPath>$(DXSDK_DIR)Lib\x86;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -62,8 +62,8 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>HAPI</AdditionalLibraryDirectories>
-      <AdditionalDependencies>HAPI_debug.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>HAPI;DirectX/X86</AdditionalLibraryDirectories>
+      <AdditionalDependencies>HAPI_debug.lib;d3dx9.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -92,6 +92,7 @@
     <ClCompile Include="Game\CreepManager.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Map.cpp" />
+    <ClCompile Include="Game\MenuScene.cpp" />
     <ClCompile Include="Game\Projectile.cpp" />
     <ClCompile Include="Game\ProjectileManager.cpp" />
     <ClCompile Include="Game\Projectiles\FireBall.cpp" />
@@ -106,6 +107,8 @@
     <ClCompile Include="Math\Math.cpp" />
     <ClCompile Include="Math\Rect.cpp" />
     <ClCompile Include="Math\Vec2.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\UIComponent.cpp" />
     <ClCompile Include="World\Entity.cpp" />
     <ClCompile Include="World\Scene.cpp" />
     <ClCompile Include="World\World.cpp" />
@@ -115,6 +118,7 @@
     <ClInclude Include="Game\CreepManager.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Map.h" />
+    <ClInclude Include="Game\MenuScene.h" />
     <ClInclude Include="Game\Projectile.h" />
     <ClInclude Include="Game\ProjectileManager.h" />
     <ClInclude Include="Game\Projectiles\FireBall.h" />
@@ -128,6 +132,8 @@
     <ClInclude Include="Math\Math.h" />
     <ClInclude Include="Math\Rect.h" />
     <ClInclude Include="Math\Vec2.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\UIComponent.h" />
     <ClInclude Include="World\Entity.h" />
     <ClInclude Include="World\Scene.h" />
     <ClInclude Include="World\World.h" />

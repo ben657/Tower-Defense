@@ -1,4 +1,7 @@
 #pragma once
+
+#include <Math/Vec2.h>
+
 class Rect
 {
 public:
@@ -12,6 +15,7 @@ public:
 	~Rect();
 
 	bool Intersects(const Rect& other) const;
+	bool Contains(const Vec2& point) const;
 	void ClipTo(const Rect& other);
 	void MoveTo(int x, int y);
 	int Width() const;
