@@ -7,6 +7,8 @@ MenuScene::MenuScene()
 	gfx->LoadTexture("Data/buttons/options.png", "btn_options");
 	gfx->LoadTexture("Data/buttons/exit.png", "btn_exit");
 
+	audio->LoadSound("Data/sounds/menuLoop.wav", "menuLoop");
+
 	map = new Map(this, "map1");
 	AddEntity(map);
 
@@ -31,8 +33,15 @@ MenuScene::~MenuScene()
 
 }
 
+void MenuScene::SwitchedTo(const std::string& from, void* data)
+{
+	audio->PlaySound("menuLoop", true, 1000);
+}
+
 void* MenuScene::SwitchedFrom(const std::string& to)
 {
+	audio->StopSound("menuLoop");
+
 	char* map = "map2";
 	return map;
 }

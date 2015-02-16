@@ -1,10 +1,77 @@
-﻿Build started 15/02/2015 20:35:56.
+﻿Build started 16/02/2015 14:20:26.
      1>Project "U:\Year 2\GEC\Tower-Defense\Tower Defense\Tower Defense.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"U:\Year 2\GEC\Tower-Defense\Tower Defense\\" /IHAPI /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Game\GameOverScene.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"U:\Year 2\GEC\Tower-Defense\Tower Defense\\" /IHAPI /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Game\Creep.cpp Game\CreepManager.cpp Game\GameOverScene.cpp Game\GameScene.cpp Game\Map.cpp Game\MenuScene.cpp Game\Projectile.cpp Game\ProjectileManager.cpp Game\Projectiles\FireBall.cpp Game\Projectiles\Lightning.cpp Game\Tower.cpp Game\TowerManager.cpp UI\Button.cpp UI\UIComponent.cpp World\Entity.cpp World\Scene.cpp World\World.cpp main.cpp
+         Entity.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(15): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(20): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(48): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(49): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(50): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(51): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\world\entity.cpp(52): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Generating Code...
+         Compiling...
+         main.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         World.cpp
+         Scene.cpp
+         UIComponent.cpp
+         Button.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\ui\button.cpp(54): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         TowerManager.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\towermanager.cpp(79): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         Tower.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         Lightning.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectiles\lightning.cpp(7): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectiles\lightning.cpp(23): warning C4244: 'argument' : conversion from 'const float' to 'int', possible loss of data
+         FireBall.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectiles\fireball.cpp(6): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+         ProjectileManager.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectilemanager.cpp(19): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectilemanager.cpp(46): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectilemanager.cpp(58): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\projectilemanager.cpp(70): warning C4018: '<' : signed/unsigned mismatch
+         Projectile.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         MenuScene.cpp
+         Map.cpp
+         GameScene.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(24): warning C4244: 'argument' : conversion from 'time_t' to 'unsigned int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(74): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(105): warning C4244: '=' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(141): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(147): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(216): warning C4244: '*=' : conversion from 'float' to 'int', possible loss of data
          GameOverScene.cpp
+         CreepManager.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.cpp(73): warning C4244: 'argument' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.cpp(126): warning C4018: '<' : signed/unsigned mismatch
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.cpp(147): warning C4244: '-=' : conversion from 'float' to 'int', possible loss of data
+         Creep.cpp
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(35): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+     1>u:\year 2\gec\tower-defense\tower defense\game\creepmanager.h(41): warning C4244: 'initializing' : conversion from 'float' to 'int', possible loss of data
+         Generating Code...
+     1>u:\year 2\gec\tower-defense\tower defense\game\gamescene.cpp(97): warning C4715: 'GameScene::SwitchedFrom' : not all control paths return a value
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.exe" /INCREMENTAL /NOLOGO /LIBPATH:HAPI /LIBPATH:DirectX/X86 HAPI_debug.lib d3dx9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.lib" /MACHINE:X86 Debug\Creep.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.exe" /INCREMENTAL /NOLOGO /LIBPATH:HAPI /LIBPATH:DirectX/X86 HAPI_debug.lib d3dx9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.lib" /MACHINE:X86 Debug\Audio.obj
+         Debug\Creep.obj
          Debug\CreepManager.obj
          Debug\GameOverScene.obj
          Debug\GameScene.obj
@@ -34,4 +101,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.57
+Time Elapsed 00:00:28.79

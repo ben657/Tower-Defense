@@ -59,10 +59,10 @@ void Tower::FixedUpdate()
 	Entity::FixedUpdate();
 }
 
-void Tower::Draw()
+void Tower::Draw(float interp)
 {
 	if (!active)
 		return;
 
-	Entity::Draw();
+	Entity::Draw(interp);
 }

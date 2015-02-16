@@ -19,5 +19,5 @@ public:
 
 	virtual void Update(float delta);
 	virtual void FixedUpdate();
-	virtual void Draw();
+	virtual void Draw(float interp);
 };

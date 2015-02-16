@@ -63,14 +63,14 @@ void ProjectileManager::FixedUpdate()
 	}
 }
 
-void ProjectileManager::Draw()
+void ProjectileManager::Draw(float interp)
 {
 	for (auto proj : projs_)
 	{
 		for (int i = 0; i < proj.second.size(); i++)
 		{
 			if (proj.second[i]->active)
-				proj.second[i]->Draw();
+				proj.second[i]->Draw(interp);
 		}
 	}
 }

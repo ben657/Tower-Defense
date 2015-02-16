@@ -54,6 +54,6 @@ public:
 
 	void Update(float delta);
 	void FixedUpdate();
-	void Draw();
+	void Draw(float interp);
 };
 

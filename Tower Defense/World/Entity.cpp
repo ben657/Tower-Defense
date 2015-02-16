@@ -23,12 +23,14 @@ Rect& Entity::GetHitbox()
 
 void Entity::FixedUpdate()
 {
+	lastPosition_ = position_;
 	gfx->UpdateAnimation(animID_, world->GetFDelta());
 }
 
-void Entity::Draw()
+void Entity::Draw(float interp)
 {	
-	Vec2 drawPos = (position_ + offset_) - world->camPos;
+	Vec2 iPos = lastPosition_ + (position_ - lastPosition_) * interp;
+	Vec2 drawPos = (iPos + offset_) - world->camPos;
 	
 	if (animID_ < 0)
 	{

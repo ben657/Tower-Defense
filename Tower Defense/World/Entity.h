@@ -11,6 +11,7 @@ class Scene;
 class Entity
 {
 protected:	
+	Vec2 lastPosition_;
 	Vec2 position_;
 	Vec2 offset_;
 	Rect hitbox_;
@@ -42,6 +43,6 @@ public:
 
 	virtual void Update(float delta){};
 	virtual void FixedUpdate();
-	virtual void Draw();
+	virtual void Draw(float interp);
 };
 

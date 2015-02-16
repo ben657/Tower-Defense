@@ -23,6 +23,6 @@ public:
 	~Button();
 
 	void Update(float delta) override;
-	void Draw() override;
+	void Draw(float interp) override;
 };
 

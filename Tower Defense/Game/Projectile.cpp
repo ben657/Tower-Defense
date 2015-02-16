@@ -31,10 +31,10 @@ void Projectile::FixedUpdate()
 		return;
 }
 
-void Projectile::Draw()
+void Projectile::Draw(float interp)
 {
 	if (!active)
 		return;
 
-	Entity::Draw();
+	Entity::Draw(interp);
 }

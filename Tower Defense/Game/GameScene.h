@@ -7,6 +7,7 @@
 #include <Game/ProjectileManager.h>
 #include <UI/Button.h>
 #include <Input.h>
+#include <Audio.h>
 #include <fstream>
 
 class GameScene : public Scene
@@ -53,5 +54,5 @@ public:
 
 	void Update(float delta) override;
 	void FixedUpdate() override;
-	void Draw() override;
+	void Draw(float interp) override;
 };

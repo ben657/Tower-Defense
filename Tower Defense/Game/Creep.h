@@ -39,5 +39,5 @@ public:
 	void Update(float delta) override;
 	void FixedUpdate() override;
 
-	void Draw() override;
+	void Draw(float interp) override;
 };

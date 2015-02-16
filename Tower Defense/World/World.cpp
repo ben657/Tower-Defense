@@ -39,25 +39,26 @@ void World::Initialise(int width, int height)
 
 void World::Start()
 {
-	//HAPI->SetShowFPS(true);
-	float spareTime = 0.0f;
+	HAPI->SetShowFPS(true);
+	float sinceUpdate = 0.0f;
+
 	while (HAPI->Update())
 	{
 		frameTime_ = (float)HAPI->GetTime() - lastFrameTime_;
 		lastFrameTime_ = (float)HAPI->GetTime();
 
-		spareTime += frameTime_;
-						
-		while (spareTime > 0.f && doFixedStep_)
+		sinceUpdate += frameTime_;
+
+		if (sinceUpdate > delta_ && doFixedStep_)
 		{					
 			activeScene_->FixedUpdate();
-			spareTime -= delta_;	
+			sinceUpdate = 0.0f;	
 		}	
-		if (!doFixedStep_){ spareTime = 0; }
+		if (!doFixedStep_){ sinceUpdate = 0; }
 
 		input->Update();
 		activeScene_->Update(frameTime_);
-		Draw();		
+		Draw(sinceUpdate / delta_);
 	}
 }
 
@@ -89,8 +90,9 @@ Scene* World::GetActiveScene()
 	return activeScene_;
 }
 
-void World::Draw()
+void World::Draw(float interp)
 {
+	HAPI->DebugText(std::to_string(interp));
 	gfx->Clear();
-	activeScene_->Draw();	
+	activeScene_->Draw(interp);	
 }

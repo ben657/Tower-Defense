@@ -33,8 +33,8 @@ void Scene::FixedUpdate()
 		entities_[i]->FixedUpdate();
 }
 
-void Scene::Draw()
+void Scene::Draw(float interp)
 {
 	for (unsigned int i = 0; i < entities_.size(); i++)
-		entities_[i]->Draw();
+		entities_[i]->Draw(interp);
 }

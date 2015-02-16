@@ -13,7 +13,7 @@ bool Map::CanPlace(const Vec2& position)
 	return (mask.r == 0 && mask.g == 0 && mask.b == 0);
 }
 
-void Map::Draw()
+void Map::Draw(float interp)
 {
 	gfx->ClipBlit(position_ - world->camPos, textureID_, 0, 0);
 }

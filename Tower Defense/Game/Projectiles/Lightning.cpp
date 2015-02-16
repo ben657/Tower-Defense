@@ -44,7 +44,7 @@ void Lightning::FixedUpdate()
 		active = false;
 }
 
-void Lightning::Draw()
+void Lightning::Draw(float interp)
 {
 	Vec2 startPos = (position_) - world->camPos;
 	Vec2 endPos = target_ - world->camPos;

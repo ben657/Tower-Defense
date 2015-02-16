@@ -13,5 +13,5 @@ public:
 
 	void Reset(const std::string& textureID, const Vec2& position, const Vec2& target, const Vec2& direction) override;
 	void FixedUpdate() override;
-	void Draw() override;
+	void Draw(float interp) override;
 };

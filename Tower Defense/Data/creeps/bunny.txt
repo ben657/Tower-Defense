@@ -1,0 +1,10 @@
+Health 10
+Attack 2
+Reward 10
+Speed 1.0
+HBWidth 32
+HBHeight 32
+HBOffsetX -16.0
+HBOffsetY -16.0
+OffsetX -16.0
+OffsetY -16.0

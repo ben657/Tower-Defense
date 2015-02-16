@@ -46,7 +46,7 @@ public:
 	void ToggleFixedStep(){ doFixedStep_ = !doFixedStep_; }
 	bool FixedStepRunning() { return doFixedStep_; }
 
-	void Draw();
+	void Draw(float interp);
 };
 
 #define world World::Instance()

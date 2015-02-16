@@ -81,10 +81,10 @@ void Creep::FixedUpdate()
 	Entity::FixedUpdate();
 }
 
-void Creep::Draw()
+void Creep::Draw(float interp)
 {
 	if (!active)
 		return;
 
-	Entity::Draw();
+	Entity::Draw(interp);
 }

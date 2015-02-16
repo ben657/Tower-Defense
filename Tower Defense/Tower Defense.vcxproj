@@ -88,6 +88,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Audio.cpp" />
     <ClCompile Include="Game\Creep.cpp" />
     <ClCompile Include="Game\CreepManager.cpp" />
     <ClCompile Include="Game\GameOverScene.cpp" />
@@ -115,6 +116,7 @@
     <ClCompile Include="World\World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Audio.h" />
     <ClInclude Include="Game\Creep.h" />
     <ClInclude Include="Game\CreepManager.h" />
     <ClInclude Include="Game\GameOverScene.h" />

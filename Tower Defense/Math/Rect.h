@@ -21,4 +21,3 @@ public:
 	int Width() const;
 	int Height() const;
 };
-

@@ -160,11 +160,11 @@ void CreepManager::FixedUpdate()
 	}
 }
 
-void CreepManager::Draw()
+void CreepManager::Draw(float interp)
 {
 	for (Creep* creep : creeps_)
 	{
 		if (creep->active)
-			creep->Draw();
+			creep->Draw(interp);
 	}
 }

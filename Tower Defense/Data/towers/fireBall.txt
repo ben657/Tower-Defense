@@ -1,0 +1,12 @@
+Health 10
+Attack 2
+Cost 50
+Range 150.0
+ProjType fireBall
+AttackDelay 0.8
+HBWidth 32
+HBHeight 16
+HBOffsetX -16.0
+HBOffsetY -8.0
+OffsetX -16.0
+OffsetY -24.0

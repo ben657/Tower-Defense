@@ -97,11 +97,11 @@ void TowerManager::FixedUpdate()
 	}
 }
 
-void TowerManager::Draw()
+void TowerManager::Draw(float interp)
 {
 	for (Tower* tower : towers_)
 	{
 		if (tower->active)
-			tower->Draw();
+			tower->Draw(interp);
 	}
 }

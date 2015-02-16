@@ -43,7 +43,7 @@ void Button::Update(float delta)
 	}
 }
 
-void Button::Draw()
+void Button::Draw(float interp)
 {
 	if (!visible_)
 		return;

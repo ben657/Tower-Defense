@@ -4,6 +4,9 @@ GameScene::GameScene()
 {
 	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
 	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");	
+
+	audio->LoadSound("Data/sounds/gameLoop.wav", "gameLoop");
+	audio->LoadSound("Data/sounds/newWave.wav", "newWave");
 }
 
 GameScene::~GameScene()
@@ -14,6 +17,9 @@ GameScene::~GameScene()
 void GameScene::SwitchedTo(const std::string& from, void* data)
 {
 	std::string mapName = std::string((char*)data);
+
+	audio->StopSound("menuLoop");
+	audio->PlaySound("gameLoop", true, 1000);
 
 	srand(time(0));
 
@@ -80,6 +86,8 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 
 void* GameScene::SwitchedFrom(const std::string& to)
 {
+	audio->StopSound("gameLoop");
+
 	if (to == "GameOverScene")
 	{
 		world->ChangeSpeedMult(1.f);
@@ -100,6 +108,7 @@ void GameScene::SpawnWave()
 		numCreeps++;
 		waveDifficulty += cManager_->QRandom(rand() % numPaths);
 	}
+	audio->PlaySound("newWave", false, 1000);
 }
 
 Vec2 GameScene::NextPoint(int path, int currentIndex)
@@ -214,15 +223,15 @@ void GameScene::FixedUpdate()
 	}
 }
 
-void GameScene::Draw()
+void GameScene::Draw(float interp)
 {		
-	map_->Draw();
-	cManager_->Draw();
-	tManager_->Draw();
-	pManager_->Draw();
+	map_->Draw(interp);
+	cManager_->Draw(interp);
+	tManager_->Draw(interp);
+	pManager_->Draw(interp);
 	gfx->BlitText(Vec2(10, 10), "Money: " + std::to_string(plMoney), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 35), "Health: " + std::to_string(plHealth), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 60), "Wave: " + std::to_string(wave), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 85), "Creeps left: " + std::to_string(numCreeps), Colour(0, 0, 0));
-	Scene::Draw();
+	Scene::Draw(interp);
 }
