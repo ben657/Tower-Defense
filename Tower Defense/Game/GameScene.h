@@ -17,7 +17,9 @@ private:
 
 	int numPaths = 0;
 	int numCreeps = 0;
-	Map* map;
+	int wave = 0;
+
+	Map* map_;
 	std::vector<std::vector<Vec2>> paths_;
 	std::vector<int> pathLengths_;
 
@@ -27,18 +29,14 @@ private:
 
 	Button* towerMenuBtn = nullptr;
 	std::vector<Button*> towerBtns;
-	std::string placingTower = "";
-
-	int wave = 0;
-
-	float spawnCD = 0.f;
-	float mult = 1.0f;
+	std::string placingTower = "";	
 
 public:
-	GameScene(const std::string& mapName);
+	GameScene();
 	~GameScene();
 
 	void SwitchedTo(const std::string& from, void* data) override;
+	void* SwitchedFrom(const std::string& to) override;
 
 	void SpawnWave();
 

@@ -90,6 +90,7 @@
   <ItemGroup>
     <ClCompile Include="Game\Creep.cpp" />
     <ClCompile Include="Game\CreepManager.cpp" />
+    <ClCompile Include="Game\GameOverScene.cpp" />
     <ClCompile Include="Game\GameScene.cpp" />
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\MenuScene.cpp" />
@@ -116,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="Game\Creep.h" />
     <ClInclude Include="Game\CreepManager.h" />
+    <ClInclude Include="Game\GameOverScene.h" />
     <ClInclude Include="Game\GameScene.h" />
     <ClInclude Include="Game\Map.h" />
     <ClInclude Include="Game\MenuScene.h" />

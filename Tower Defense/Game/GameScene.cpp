@@ -1,6 +1,6 @@
 #include "GameScene.h"
 
-GameScene::GameScene(const std::string& mapName)
+GameScene::GameScene()
 {
 	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
 	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");	
@@ -17,11 +17,17 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 
 	srand(time(0));
 
+	plMoney = 100;
+	plHealth = 20;
+	numPaths = 0;
+	numCreeps = 0;
+	wave = 0;
+
 	cManager_ = new CreepManager(this, 1000);
 	pManager_ = new ProjectileManager(this, 100);
 	tManager_ = new TowerManager(this, 100);
 
-	map = new Map((Scene*)this, mapName);
+	map_ = new Map((Scene*)this, mapName);
 
 	cManager_->LoadCreepData("bunny");
 	cManager_->LoadCreepData("unicorn");
@@ -72,6 +78,16 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 	SpawnWave();
 }
 
+void* GameScene::SwitchedFrom(const std::string& to)
+{
+	if (to == "GameOverScene")
+	{
+		world->ChangeSpeedMult(1.f);
+		const char* map = map_->name_.c_str();
+		return (void*)map;
+	}
+}
+
 void GameScene::SpawnWave()
 {
 	numCreeps = 0;
@@ -100,11 +116,11 @@ Vec2 GameScene::NextPoint(int path, int currentIndex)
 void GameScene::Update(float delta)
 {
 	Scene::Update(delta);	
-
-	if (input->MouseBtnJustDown(0) && placingTower != "")
+	
+	if (input->MouseBtnJustDown(0) && placingTower != "" && !input->InputCaught())
 	{
 		Vec2 pos = input->MousePos() + world->camPos;
-		if (map->CanPlace(pos))
+		if (map_->CanPlace(pos))
 		{
 			tManager_->NewTower(placingTower, pos);
 			placingTower = "";
@@ -190,11 +206,17 @@ void GameScene::FixedUpdate()
 		SpawnWave();
 		cManager_->spawnDelay_ *= 0.9f;
 	}
+
+	if (plHealth <= 0)
+	{
+		plHealth = 0;
+		world->SetActiveScene("GameOverScene");
+	}
 }
 
 void GameScene::Draw()
 {		
-	map->Draw();
+	map_->Draw();
 	cManager_->Draw();
 	tManager_->Draw();
 	pManager_->Draw();

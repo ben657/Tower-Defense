@@ -4,7 +4,6 @@
 
 Tower::Tower(GameScene* scene, const std::string& textureID) : Entity(Vec2(0.f, 0.f), textureID), gScene_(scene)
 {
-	animID_ = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
 	cm_ = gScene_->GetCM();
 	pm_ = gScene_->GetPM();
 }
@@ -23,6 +22,7 @@ void Tower::SetAnimations(int idle, int fire)
 {
 	idleAnim_ = idle;
 	fireAnim_ = fire;
+	animID_ = idleAnim_;
 }
 
 void Tower::SetStats(int health, int damage, float attackDelay, float range, std::string projType)

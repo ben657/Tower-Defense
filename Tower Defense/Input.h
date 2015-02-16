@@ -17,6 +17,8 @@ private:
 	HAPI_TControllerData** cData = nullptr;
 	bool* controllers = nullptr;
 
+	bool inputCaught = false;
+
 protected:
 	Input();
 
@@ -36,6 +38,9 @@ public:
 	bool MouseBtnJustUp(const int btn);
 	Vec2 MousePos(){ return Vec2((float)mData->x, (float)mData->y); }
 	Vec2 MouseDelta(){ return Vec2((float)mData->x, (float)mData->y) - Vec2((float)lastMD->x, (float)lastMD->y); }
+
+	bool InputCaught(){ return inputCaught; }
+	void SetInputCaught(bool val){ inputCaught = val; }
 
 	void Update();
 };

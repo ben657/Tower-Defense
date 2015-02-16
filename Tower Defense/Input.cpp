@@ -113,6 +113,8 @@ bool Input::MouseBtnJustUp(const int btn)
 
 void Input::Update()
 {	
+	inputCaught = false;
+
 	if (lastKD != nullptr)
 		delete lastKD;
 	lastKD = kData;

@@ -54,6 +54,7 @@ public:
 	void CreateTexture(Colour& colour, int width, int height, std::string uid);
 
 	int CreateAnimation(int startFrame, int endFrame, int frameWidth, int frameHeight, int framesAcross, int framesDown, int fps);
+	int CopyAnimation(int animID);
 	void UpdateAnimation(const int animID, float delta);
 
 	Colour PixelAt(const Vec2& position);

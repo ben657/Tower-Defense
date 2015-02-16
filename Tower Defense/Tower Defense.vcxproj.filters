@@ -113,6 +113,9 @@
     <ClCompile Include="Game\MenuScene.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameOverScene.cpp">
+      <Filter>Source Files\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Input.h">
@@ -182,6 +185,9 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game\MenuScene.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameOverScene.h">
       <Filter>Header Files\Game</Filter>
     </ClInclude>
   </ItemGroup>

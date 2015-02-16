@@ -15,6 +15,7 @@ private:
 	static World* instance_;
 
 	std::map<std::string, Scene*> scenes_;
+	std::string activeID_ = "";
 	Scene* activeScene_ = nullptr;
 	float lastFrameTime_ = 0;
 	float frameTime_ = 0;

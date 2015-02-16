@@ -75,7 +75,13 @@ Scene* World::GetScene(std::string uid)
 
 void World::SetActiveScene(std::string uid)
 {
+	void* data = nullptr;
+	if (activeScene_ != nullptr)
+		data = activeScene_->SwitchedFrom(uid);
+
 	activeScene_ = scenes_[uid];
+	activeScene_->SwitchedTo(activeID_, data);
+	activeID_ = uid;
 }
 
 Scene* World::GetActiveScene()

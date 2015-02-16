@@ -64,6 +64,14 @@ int Graphics::CreateAnimation(int startFrame, int endFrame, int frameWidth, int 
 	return animations_.size() - 1;
 }
 
+int Graphics::CopyAnimation(int animID)
+{
+	Animation* old = animations_[animID];
+	Animation* newAnim = new Animation(old->startFrame_, old->endFrame_, old->frameWidth_, old->frameHeight_, old->framesAcross_, old->framesDown_, old->fps_);
+	animations_.push_back(newAnim);
+	return animations_.size() - 1;
+}
+
 void Graphics::UpdateAnimation(const int animID, float delta)
 {
 	if (animID == -1)

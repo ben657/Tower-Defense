@@ -3,9 +3,9 @@
 Button::Button(Rect rect, std::string text, Colour colour) : rect_(rect), text_(text), colour_(colour)
 {
 	highLightCol_ = colour_;
-	highLightCol_.r = math::max(0, (int)highLightCol_.r - 25);
-	highLightCol_.g = math::max(0, (int)highLightCol_.g - 25);
-	highLightCol_.b = math::max(0, (int)highLightCol_.b - 25);
+	highLightCol_.r = math::max(0, (int)highLightCol_.r - 30);
+	highLightCol_.g = math::max(0, (int)highLightCol_.g - 30);
+	highLightCol_.b = math::max(0, (int)highLightCol_.b - 30);
 }
 
 Button::~Button()
@@ -19,10 +19,7 @@ void Button::Update(float delta)
 		return;
 
 	justPressed_ = false;
-	if (pressed_)
-	{
-		input->SetInputCaught(true);
-	}
+	
 	if (input->MouseBtnJustDown(0))
 	{
 		Vec2 mPos = input->MousePos();
@@ -39,6 +36,10 @@ void Button::Update(float delta)
 			justPressed_ = true;
 		}
 		pressed_ = false;
+	}
+	if (pressed_)
+	{
+		input->SetInputCaught(true);
 	}
 }
 

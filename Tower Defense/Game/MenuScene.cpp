@@ -34,7 +34,7 @@ MenuScene::~MenuScene()
 void* MenuScene::SwitchedFrom(const std::string& to)
 {
 	char* map = "map2";
-	return (void*)map;
+	return map;
 }
 
 void MenuScene::Update(float delta)

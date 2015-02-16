@@ -63,6 +63,9 @@ void TowerManager::LoadTowerData(const std::string& name)
 			file >> towerDatas_[name].offset.y_;
 	}
 	file.close();
+
+	towerDatas_[name].idleAnim = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
+	towerDatas_[name].fireAnim = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
 }
 
 void TowerManager::NewTower(const std::string& type, const Vec2& position)
@@ -71,7 +74,7 @@ void TowerManager::NewTower(const std::string& type, const Vec2& position)
 	tower->SetOffset(towerDatas_[type].offset);
 	tower->active = true;
 	tower->Reset("tower_" + type, position);
-	tower->SetAnimations(towerDatas_[type].idleAnim, towerDatas_[type].fireAnim);
+	tower->SetAnimations(gfx->CopyAnimation(towerDatas_[type].idleAnim), gfx->CopyAnimation(towerDatas_[type].fireAnim));
 	tower->SetStats(towerDatas_[type].health, towerDatas_[type].attack, towerDatas_[type].attackDelay, towerDatas_[type].range, towerDatas_[type].projType);
 	tower->SetHitbox(towerDatas_[type].hbOffset.x_, towerDatas_[type].hbOffset.y_, towerDatas_[type].hbWidth, towerDatas_[type].hbHeight);
 }
