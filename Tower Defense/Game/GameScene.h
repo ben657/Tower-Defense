@@ -9,18 +9,21 @@
 #include <Input.h>
 #include <Audio.h>
 #include <fstream>
+#include <thread>
 
 class GameScene : public Scene
 {
 private:
-	int plMoney = 100;
+	int plMoney = 0;
 	int plHealth = 20;
 
 	int numPaths = 0;
 	int numCreeps = 0;
 	int wave = 0;
 
-	Map* map_;
+	int towerAnim = 0;
+
+	Map* map_ = nullptr;
 	std::vector<std::vector<Vec2>> paths_;
 	std::vector<int> pathLengths_;
 
@@ -30,7 +33,16 @@ private:
 
 	Button* towerMenuBtn = nullptr;
 	std::vector<Button*> towerBtns;
-	std::string placingTower = "";	
+	std::string placingTowerName_ = "";	
+
+	std::thread spawnThread_;
+
+	Entity* placingTower_ = nullptr;
+
+	bool lastSpawning_ = false;
+	bool spawning_ = false;
+
+	void StartSpawning();
 
 public:
 	GameScene();

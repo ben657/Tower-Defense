@@ -42,6 +42,8 @@ public:
 
 	void LoadTowerData(const std::string& name);
 
+	Tower* GetColliding(const Rect& hitbox);
+
 	void NewTower(const std::string& type, const Vec2& position);
 	int GetCost(const std::string& type){ return towerDatas_[type].cost; };
 

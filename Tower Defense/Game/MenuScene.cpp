@@ -28,11 +28,6 @@ MenuScene::MenuScene()
 	AddEntity(exitBtn);
 }
 
-MenuScene::~MenuScene()
-{
-
-}
-
 void MenuScene::SwitchedTo(const std::string& from, void* data)
 {
 	audio->PlaySound("menuLoop", true, 1000);

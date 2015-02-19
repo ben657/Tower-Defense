@@ -24,7 +24,7 @@ protected:
 
 public:			
 	float rotation = 0.0f;
-	bool drawhb = false;
+	bool drawhb = true;
 	Entity(const Vec2& position = Vec2(0.f, 0.f), const std::string& textureID = "");
 	virtual ~Entity();
 
@@ -38,7 +38,7 @@ public:
 	Rect& GetHitbox();
 
 	void SetOffset(const Vec2& offset){ offset_ = offset; }
-	void SetPosition(const Vec2& position){ position_ = position; }
+	void SetPosition(const Vec2& position){ position_ = position; lastPosition_ = position; }
 	Vec2 GetPosition() const { return position_; }	
 
 	virtual void Update(float delta){};

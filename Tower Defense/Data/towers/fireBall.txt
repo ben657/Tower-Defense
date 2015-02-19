@@ -5,8 +5,8 @@ Range 150.0
 ProjType fireBall
 AttackDelay 0.8
 HBWidth 32
-HBHeight 16
+HBHeight 48
 HBOffsetX -16.0
-HBOffsetY -8.0
+HBOffsetY -24.0
 OffsetX -16.0
 OffsetY -24.0

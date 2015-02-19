@@ -1,6 +1,7 @@
 Health 10
 Attack 2
-Reward 10
+Reward 5
+Level 1
 Speed 1.0
 HBWidth 32
 HBHeight 32

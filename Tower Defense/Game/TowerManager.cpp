@@ -10,6 +10,10 @@ TowerManager::TowerManager(GameScene* scene, int initialNum)
 
 TowerManager::~TowerManager()
 {
+	for (int i = 0; i < (int)towers_.size(); i++)
+	{
+		delete towers_[i];
+	}
 }
 
 Tower* TowerManager::GetFirstInactive()
@@ -68,6 +72,19 @@ void TowerManager::LoadTowerData(const std::string& name)
 	towerDatas_[name].fireAnim = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
 }
 
+Tower* TowerManager::GetColliding(const Rect& hitbox)
+{
+	for (int i = 0; i < (int)towers_.size(); i++)
+	{
+		if (!towers_[i]->active)
+			continue;
+
+		if (hitbox.Intersects(towers_[i]->GetHitbox()))
+			return towers_[i];
+	}
+	return nullptr;
+}
+
 void TowerManager::NewTower(const std::string& type, const Vec2& position)
 {
 	Tower* tower = GetFirstInactive();
@@ -76,7 +93,7 @@ void TowerManager::NewTower(const std::string& type, const Vec2& position)
 	tower->Reset("tower_" + type, position);
 	tower->SetAnimations(gfx->CopyAnimation(towerDatas_[type].idleAnim), gfx->CopyAnimation(towerDatas_[type].fireAnim));
 	tower->SetStats(towerDatas_[type].health, towerDatas_[type].attack, towerDatas_[type].attackDelay, towerDatas_[type].range, towerDatas_[type].projType);
-	tower->SetHitbox(towerDatas_[type].hbOffset.x_, towerDatas_[type].hbOffset.y_, towerDatas_[type].hbWidth, towerDatas_[type].hbHeight);
+	tower->SetHitbox((int)towerDatas_[type].hbOffset.x_, (int)towerDatas_[type].hbOffset.y_, (int)towerDatas_[type].hbWidth, (int)towerDatas_[type].hbHeight);
 }
 
 void TowerManager::Update(float delta)

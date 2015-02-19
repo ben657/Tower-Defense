@@ -8,11 +8,6 @@ Button::Button(Rect rect, std::string text, Colour colour) : rect_(rect), text_(
 	highLightCol_.b = math::max(0, (int)highLightCol_.b - 30);
 }
 
-Button::~Button()
-{
-
-}
-
 void Button::Update(float delta)
 {
 	if (!visible_)
@@ -51,7 +46,7 @@ void Button::Draw(float interp)
 	gfx->BlitRect(rect_, pressed_ ? highLightCol_ : colour_);
 	if (textureID_ != "")
 	{
-		Vec2 pos(rect_.left_, rect_.top_);
+		Vec2 pos((float)rect_.left_, (float)rect_.top_);
 		pos += iconOffset_;
 		gfx->BlitAlpha(pos, textureID_);
 	}

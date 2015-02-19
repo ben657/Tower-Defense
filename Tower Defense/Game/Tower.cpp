@@ -10,12 +10,14 @@ Tower::Tower(GameScene* scene, const std::string& textureID) : Entity(Vec2(0.f, 
 
 Tower::~Tower()
 {
+	Entity::~Entity();
 }
 
 void Tower::Reset(const std::string& textureID, const Vec2& position)
 {
 	textureID_ = textureID;
 	position_ = position;
+	lastPosition_ = position;
 }
 
 void Tower::SetAnimations(int idle, int fire)

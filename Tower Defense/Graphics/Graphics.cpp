@@ -159,10 +159,22 @@ void Graphics::BlitRect(Rect rect, const Colour& colour)
 	
 	for (int y = 0; y < rect.Height(); y++)	
 	{
-		for (int x = 0; x < rect.Width(); x++)
+		if (y == 0 || y == rect.Height() - 1)
 		{
-			memcpy(screenOffset, &colour, 4);
-			screenOffset += 4;
+			memset(screenOffset, 0, rect.Width() * 4);
+			screenOffset += rect.Width() * 4;
+		}
+		else
+		{
+			for (int x = 0; x < rect.Width(); x++)
+			{
+				if (x == 0 || x == rect.Width() - 1)
+					memset(screenOffset, 0, 4);
+				else
+					memcpy(screenOffset, &colour, 4);
+
+				screenOffset += 4;
+			}
 		}
 		screenOffset += lineJump;
 	}
@@ -298,5 +310,5 @@ void Graphics::BlitLine(const Vec2& p1, const Vec2& p2, const Colour& colour) //
 
 void Graphics::BlitText(const Vec2& position, const std::string& text, const Colour& colour)
 {
-	HAPI->RenderText(position.x_, position.y_, HAPI_TColour(colour.r, colour.g, colour.b), text);
+	HAPI->RenderText((int)position.x_, (int)position.y_, HAPI_TColour(colour.r, colour.g, colour.b), text);
 }

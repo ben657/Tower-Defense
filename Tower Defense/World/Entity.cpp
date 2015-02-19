@@ -12,12 +12,12 @@ Entity::~Entity()
 void Entity::SetHitbox(int x, int y, int width, int height)
 {
 	hitbox_ = Rect(0, 0, width, height);
-	hitboxOffset_ = Vec2(x, y);
+	hitboxOffset_ = Vec2((float)x, (float)y);
 }
 
 Rect& Entity::GetHitbox()
 {
-	hitbox_.MoveTo(position_.x_ + hitboxOffset_.x_, position_.y_ + hitboxOffset_.y_);
+	hitbox_.MoveTo((int)position_.x_ + (int)hitboxOffset_.x_, (int)position_.y_ + (int)hitboxOffset_.y_);
 	return hitbox_;
 }
 
@@ -45,10 +45,11 @@ void Entity::Draw(float interp)
 	if (drawhb)
 	{
 		Rect hb = GetHitbox();
-		hb.MoveTo(drawPos.x_, drawPos.y_);
-		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.right_, hb.top_), Colour(255, 0, 0));
-		gfx->BlitLine(Vec2(hb.left_, hb.top_), Vec2(hb.left_, hb.bottom_), Colour(255, 0, 0));
-		gfx->BlitLine(Vec2(hb.right_, hb.top_), Vec2(hb.right_, hb.bottom_), Colour(255, 0, 0));
-		gfx->BlitLine(Vec2(hb.left_, hb.bottom_), Vec2(hb.right_, hb.bottom_), Colour(255, 0, 0));
+		Vec2 hbPos = (position_ + hitboxOffset_) - world->camPos;
+		hb.MoveTo((int)hbPos.x_, (int)hbPos.y_);
+		gfx->BlitLine(Vec2((float)hb.left_, (float)hb.top_), Vec2((float)hb.right_, (float)hb.top_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2((float)hb.left_, (float)hb.top_), Vec2((float)hb.left_, (float)hb.bottom_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2((float)hb.right_, (float)hb.top_), Vec2((float)hb.right_, (float)hb.bottom_), Colour(255, 0, 0));
+		gfx->BlitLine(Vec2((float)hb.left_, (float)hb.bottom_), Vec2((float)hb.right_, (float)hb.bottom_), Colour(255, 0, 0));
 	}
 }

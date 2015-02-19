@@ -9,8 +9,7 @@
 
 void HAPI_Main()
 {
-	world->Initialise(1600, 900);
-
+	world->Initialise(1366, 768);
 	MenuScene* menuScene = new MenuScene();
 	GameScene* gameScene = new GameScene();	
 	GameOverScene* gameOverScene = new GameOverScene();
@@ -24,4 +23,5 @@ void HAPI_Main()
 	delete world;
 	delete gfx;
 	delete input;
+	delete audio;
 }

@@ -12,7 +12,11 @@ CreepManager::CreepManager(GameScene* scene, int initialNum)
 
 CreepManager::~CreepManager()
 {
-
+	for (int i = 0; i < (int)creeps_.size(); i++)
+	{
+		delete creeps_[i];
+		//creeps_[i] = nullptr;
+	}
 }
 
 int CreepManager::GetFirstInactive()
@@ -42,6 +46,8 @@ void CreepManager::LoadCreepData(const std::string& name)
 			file >> creepDatas_[name].health;
 		else if (key == "Attack")
 			file >> creepDatas_[name].attack;
+		else if (key == "Level")
+			file >> creepDatas_[name].level;
 		else if (key == "Reward")
 			file >> creepDatas_[name].reward;
 		else if (key == "Speed")
@@ -70,7 +76,7 @@ int CreepManager::NewCreep(const std::string& type, int path)
 	creep->Reset("creep_" + type, path);
 	creep->SetAnimations(creepDatas_[type].idleAnim, creepDatas_[type].moveAnim, creepDatas_[type].attackAnim);
 	creep->SetStats(creepDatas_[type].health, creepDatas_[type].attack, creepDatas_[type].reward, creepDatas_[type].speed);
-	creep->SetHitbox(creepDatas_[type].hbOffset.x_, creepDatas_[type].hbOffset.y_, creepDatas_[type].hbWidth, creepDatas_[type].hbHeight);
+	creep->SetHitbox((int)creepDatas_[type].hbOffset.x_, (int)creepDatas_[type].hbOffset.y_, (int)creepDatas_[type].hbWidth, (int)creepDatas_[type].hbHeight);
 	return index;
 }
 
@@ -79,12 +85,17 @@ void CreepManager::QCreep(const std::string& type, int path)
 	spawnQ_.push_back(NewCreep(type, path));
 }
 
-int CreepManager::QRandom(int path)
+int CreepManager::QRandom(int path, int wave)
 {
-	auto iter = creepDatas_.begin();
-	std::advance(iter, rand() % creepDatas_.size());
-	QCreep(iter->first, path);
-	return iter->second.reward;
+	std::vector<std::string> possible;
+	for (auto iter : creepDatas_)
+	{
+		if (iter.second.level <= wave)
+			possible.push_back(iter.first);
+	}
+	std::string choice = possible[rand() % possible.size()];
+	QCreep(choice, path);
+	return creepDatas_[choice].reward;
 }
 
 Creep* CreepManager::GetColliding(const Rect& hitbox)
@@ -123,7 +134,7 @@ bool CreepManager::AllDead()
 {
 	if (!spawnQ_.empty())
 		return false;
-	for (int i = 0; i < creeps_.size(); i++)
+	for (int i = 0; i < (int)creeps_.size(); i++)
 	{
 		if (creeps_[i]->active)
 			return false;

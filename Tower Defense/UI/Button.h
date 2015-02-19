@@ -20,7 +20,6 @@ public:
 	bool visible_ = true;
 
 	Button(Rect rect, std::string text, Colour colour);
-	~Button();
 
 	void Update(float delta) override;
 	void Draw(float interp) override;

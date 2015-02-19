@@ -2,14 +2,29 @@
 
 #include <World/Scene.h>
 #include <UI/Button.h>
+#include <fstream>
+#include <algorithm>
+
+struct Score
+{
+	std::string name = "";
+	int score = 0;
+};
 
 class GameOverScene : public Scene
 {
 private:
-	Button* tryAgainBtn = nullptr;
-	Button* mainMenuBtn = nullptr;
+	Button* tryAgainBtn_ = nullptr;
+	Button* mainMenuBtn_ = nullptr;
+	Button* inputDoneBtn_ = nullptr;
 
-	char* mapName = nullptr;
+	char* mapName_ = nullptr;
+	int score_ = 0;
+	bool takingInput_ = true;
+	std::string input_ = "_ _ _";
+	int currentInput_ = 0;
+
+	std::vector<Score> scores_;
 
 public:
 	GameOverScene();
@@ -19,5 +34,6 @@ public:
 	void* SwitchedFrom(const std::string& to);
 
 	void Update(float delta) override;
+	void Draw(float interp) override;
 };
 

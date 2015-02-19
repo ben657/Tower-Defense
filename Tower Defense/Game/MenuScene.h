@@ -15,7 +15,6 @@ private:
 
 public:
 	MenuScene();
-	~MenuScene();
 
 	void Update(float delta) override;
 

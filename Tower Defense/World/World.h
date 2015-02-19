@@ -23,6 +23,8 @@ private:
 	float baseDelta_ = 1000.f / 60.f;
 	bool doFixedStep_ = true;
 
+	int score_ = 0;
+
 protected:
 	World();
 
@@ -37,6 +39,9 @@ public:
 
 	void ChangeSpeedMult(float mult){ delta_ = baseDelta_ / mult; }
 	float GetFDelta(){ return baseDelta_; }
+
+	int GetScore(){ return score_; }
+	void SetScore(int score){ score_ = score; }
 
 	void AddScene(Scene* scene, std::string uid);
 	Scene* GetScene(std::string uid);

@@ -3,6 +3,7 @@
 GameScene::GameScene()
 {
 	gfx->LoadTexture("Data/projectiles/fireBall.png", "proj_fireBall");
+	gfx->LoadTexture("Data/projectiles/tar.png", "proj_glue");
 	gfx->LoadTexture("Data/icons/tower.png", "icon_tower");	
 
 	audio->LoadSound("Data/sounds/gameLoop.wav", "gameLoop");
@@ -11,25 +12,34 @@ GameScene::GameScene()
 
 GameScene::~GameScene()
 {
-
+	Scene::~Scene();
+	delete cManager_;
+	delete pManager_;
+	delete tManager_;
+	if (map_ != nullptr)
+		delete map_;
+	if (placingTower_ != nullptr)
+		delete placingTower_;
 }
 
 void GameScene::SwitchedTo(const std::string& from, void* data)
 {
+	HAPI->ChangeFont("Arial", 12, 700);
+
 	std::string mapName = std::string((char*)data);
 
 	audio->StopSound("menuLoop");
 	audio->PlaySound("gameLoop", true, 1000);
 
-	srand(time(0));
+	srand((int)time(0));
 
-	plMoney = 100;
+	plMoney = 1000;
 	plHealth = 20;
 	numPaths = 0;
 	numCreeps = 0;
 	wave = 0;
 
-	cManager_ = new CreepManager(this, 1000);
+	cManager_ = new CreepManager(this, 5000);
 	pManager_ = new ProjectileManager(this, 100);
 	tManager_ = new TowerManager(this, 100);
 
@@ -40,6 +50,7 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 
 	tManager_->LoadTowerData("fireBall");
 	tManager_->LoadTowerData("lightning");
+	tManager_->LoadTowerData("tar");
 
 	std::ifstream pathFile;
 	pathFile.open("Data/maps/" + mapName + "/paths.txt");
@@ -67,11 +78,13 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 
 	pathFile.close();
 
+	towerAnim = gfx->CreateAnimation(0, 3, 32, 48, 4, 1, 8);
+
 	towerMenuBtn = new Button(Rect(0, gfx->GetHeight() - 64, 64, 64), "Towers", Colour(255, 0, 0));
 	towerMenuBtn->iconOffset_ = Vec2(4.f, 4.f);
 	towerMenuBtn->SetTextureID("icon_tower");
 	AddEntity(towerMenuBtn);
-	for (int i = 0; i < tManager_->towerTypes_.size(); i++)
+	for (int i = 0; i < (int)tManager_->towerTypes_.size(); i++)
 	{
 		Button* twrBtn = new Button(Rect(74 + (i)* 58, gfx->GetHeight() - 32 - 24, 48, 48), "tower", Colour(0, 0, 255));
 		twrBtn->visible_ = false;
@@ -80,35 +93,45 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 		AddEntity(twrBtn);
 		towerBtns.push_back(twrBtn);
 	}
-
-	SpawnWave();
+	
+	StartSpawning();
 }
 
 void* GameScene::SwitchedFrom(const std::string& to)
 {
 	audio->StopSound("gameLoop");
 
+	world->ChangeSpeedMult(1.f);
+	world->camPos.Zero();
+
 	if (to == "GameOverScene")
 	{
-		world->ChangeSpeedMult(1.f);
+		world->SetScore(wave - 1);
 		const char* map = map_->name_.c_str();
 		return (void*)map;
 	}
+	return nullptr;
+}
+
+void GameScene::StartSpawning()
+{
+	spawning_ = true;
+	spawnThread_ = std::thread(&GameScene::SpawnWave, this);
 }
 
 void GameScene::SpawnWave()
 {
 	numCreeps = 0;
 	wave++;
-	int maxDifficulty = wave * 500;
+	int maxDifficulty = wave * 50;
 	int waveDifficulty = 0;
-	cManager_->spawnDelay_ = 100.f;
+	cManager_->spawnDelay_ = 400.f;
 	while (waveDifficulty < maxDifficulty)
 	{
 		numCreeps++;
-		waveDifficulty += cManager_->QRandom(rand() % numPaths);
+		waveDifficulty += cManager_->QRandom(rand() % numPaths, wave);
 	}
-	audio->PlaySound("newWave", false, 1000);
+	spawning_ = false;
 }
 
 Vec2 GameScene::NextPoint(int path, int currentIndex)
@@ -125,30 +148,51 @@ Vec2 GameScene::NextPoint(int path, int currentIndex)
 void GameScene::Update(float delta)
 {
 	Scene::Update(delta);	
-	
-	if (input->MouseBtnJustDown(0) && placingTower != "" && !input->InputCaught())
+
+	//if (input->KeyJustDown(HK_ESCAPE))
+	//{
+	//	//HAPI->Close();
+	//}
+
+	if (!spawning_ && spawnThread_.joinable())
+	{
+		spawnThread_.join();
+		audio->PlaySound("newWave", false, 1000);
+	}
+
+	if (input->MouseBtnJustDown(0) && placingTower_ != nullptr && !input->InputCaught())
 	{
 		Vec2 pos = input->MousePos() + world->camPos;
-		if (map_->CanPlace(pos))
+		int cost = tManager_->GetCost(placingTowerName_);
+		if (map_->CanPlace(pos) && plMoney >= cost && tManager_->GetColliding(placingTower_->GetHitbox()) == nullptr)
 		{
-			tManager_->NewTower(placingTower, pos);
-			placingTower = "";
+			tManager_->NewTower(placingTowerName_, pos);
+			placingTowerName_ = "";
+			placingTower_ = nullptr;
+			plMoney -= cost;
 		}
 	}
 
 	if (towerMenuBtn->justPressed_)
 	{
-		for (int i = 0; i < towerBtns.size(); i++)
+		for (int i = 0; i < (int)towerBtns.size(); i++)
 		{
 			towerBtns[i]->visible_ = !towerBtns[i]->visible_;
 		}
 	}
 
-	for (int i = 0; i < towerBtns.size(); i++)
+	for (int i = 0; i < (int)towerBtns.size(); i++)
 	{
 		if (towerBtns[i]->justPressed_)
 		{
-			placingTower = tManager_->towerTypes_[i];
+			placingTowerName_ = tManager_->towerTypes_[i];
+			if (placingTower_ != nullptr)
+				delete placingTower_;
+			placingTower_ = new Entity();
+			placingTower_->SetAnimID(towerAnim);
+			placingTower_->SetOffset(Vec2(-16.f, -24.f));
+			placingTower_->SetHitbox(-16, -24, 32, 48);
+			placingTower_->SetTextureID("tower_" + placingTowerName_);
 			break;
 		}
 	}
@@ -182,38 +226,52 @@ void GameScene::Update(float delta)
 	{
 		world->ChangeSpeedMult(4.f);
 	}
+	if (input->KeyJustDown('4'))
+	{
+		world->ChangeSpeedMult(8.f);
+	}
 	if (input->KeyJustDown(' '))
 	{
 		world->ToggleFixedStep();
 	}
 
+	if (placingTower_ != nullptr)
+		placingTower_->SetPosition(input->MousePos() + world->camPos);
+
 	//replace 2048 with mapWidth, 1600 with scrWidth at some point
 	//same with heights
 	if (world->camPos.x_ < 0)
 		world->camPos.x_ = 0;
-	if (world->camPos.x_ > 2048 - 1600)
-		world->camPos.x_ = 2048 - 1600;
+	if (world->camPos.x_ > 2048.f - gfx->GetWidth())
+		world->camPos.x_ = 2048.f - gfx->GetWidth();
 	if (world->camPos.y_ < 0)
 		world->camPos.y_ = 0;
-	if (world->camPos.y_ > 1024 - 900)
-		world->camPos.y_ = 1024 - 900;	
+	if (world->camPos.y_ > 1024.f - gfx->GetHeight())
+		world->camPos.y_ = 1024.f - gfx->GetHeight();
 
 	tManager_->Update(delta);
-	cManager_->Update(delta);
+	if (!spawning_)
+		cManager_->Update(delta);
 	pManager_->Update(delta);
+
+	lastSpawning_ = spawning_;
 }
 
 void GameScene::FixedUpdate()
 {
-	cManager_->FixedUpdate();
+	if (!spawning_)
+		cManager_->FixedUpdate();
 	tManager_->FixedUpdate();
 	pManager_->FixedUpdate();
 	Scene::FixedUpdate();
 
+	if (placingTower_ != nullptr)
+		placingTower_->FixedUpdate();
+
 	if (cManager_->AllDead())
 	{
-		SpawnWave();
-		cManager_->spawnDelay_ *= 0.9f;
+		StartSpawning();
+		//cManager_->spawnDelay_ *= 0.9f;
 	}
 
 	if (plHealth <= 0)
@@ -229,6 +287,10 @@ void GameScene::Draw(float interp)
 	cManager_->Draw(interp);
 	tManager_->Draw(interp);
 	pManager_->Draw(interp);
+
+	if (placingTower_ != nullptr)
+		placingTower_->Draw(interp);
+
 	gfx->BlitText(Vec2(10, 10), "Money: " + std::to_string(plMoney), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 35), "Health: " + std::to_string(plHealth), Colour(0, 0, 0));
 	gfx->BlitText(Vec2(10, 60), "Wave: " + std::to_string(wave), Colour(0, 0, 0));

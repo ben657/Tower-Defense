@@ -2,16 +2,12 @@
 
 FireBall::FireBall(GameScene* scene) : Projectile(scene)
 {
-	SetOffset(Vec2(-8.f, -8.f));
-	SetHitbox(-8.f, -.8f, 16.f, 16.f);
+	SetOffset(Vec2(-16.f, -16.f));
+	SetHitbox(-8, -8, 16, 16);
+	animID_ = gfx->CreateAnimation(0, 3, 32, 32, 4, 1, 4);
 	health_ = 10;
 	damage_ = 10;
-	speed_ = 5.f;
-}
-
-void FireBall::Reset(const std::string& textureID, const Vec2& position, const Vec2& target, const Vec2& direction)
-{
-	Projectile::Reset(textureID, position, target, direction);
+	speed_ = 4.f;
 }
 
 void FireBall::FixedUpdate()
@@ -31,8 +27,9 @@ void FireBall::FixedUpdate()
 		return;
 	}
 
-	if (position_.x_ < 0 + offset_.x_ || position_.x_ > 1600 - offset_.x_ || 
-		position_.y_ < 0 + offset_.y_ || position_.y_ > 900 - offset_.y_)
+	Vec2 screenPos = position_ - world->camPos;
+	if (screenPos.x_ < 0 + offset_.x_ || screenPos.x_ > gfx->GetWidth() - offset_.x_ ||
+		screenPos.y_ < 0 + offset_.y_ || screenPos.y_ > gfx->GetHeight() - offset_.y_)
 		active = false;
 
 	Entity::FixedUpdate();

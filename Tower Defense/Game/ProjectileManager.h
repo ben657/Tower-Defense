@@ -4,21 +4,10 @@
 
 #include <Game/Projectiles/FireBall.h>
 #include <Game/Projectiles/Lightning.h>
+#include <Game/Projectiles/Glue.h>
 
 #include <vector>
 #include <map>
-
-struct ProjectileData
-{
-	int health = 0;
-	int damage = 0;
-	float speed = 0.f;
-	int hbWidth = 0;
-	int hbHeight = 0;
-	Vec2 hbOffset;
-	Vec2 offset;
-	int anim = -1;
-};
 
 class ProjectileManager
 {

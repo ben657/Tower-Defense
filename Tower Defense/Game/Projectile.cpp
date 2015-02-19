@@ -27,6 +27,8 @@ void Projectile::Update(float delta)
 
 void Projectile::FixedUpdate()
 {
+	Entity::FixedUpdate();
+
 	if (!active)
 		return;
 }

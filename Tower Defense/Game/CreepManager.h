@@ -12,6 +12,7 @@ struct CreepData
 {
 	int health = 0;
 	int attack = 0;
+	int level = 0;
 	int reward = 0;
 	float speed = 0.f;
 	int hbWidth = 0;
@@ -32,13 +33,13 @@ private:
 	std::vector<Creep*> creeps_;
 	std::list<int> spawnQ_;
 	
-	int spawnCD_ = 0.0f;
+	float spawnCD_ = 0.0f;
 
 	int GetFirstInactive();
 	int NewCreep(const std::string& type, int path);
 
 public:
-	int spawnDelay_ = 500.f;
+	float spawnDelay_ = 500.f;
 
 	CreepManager(GameScene* scene, int initialNum);
 	~CreepManager();
@@ -46,7 +47,7 @@ public:
 	void LoadCreepData(const std::string& name);
 
 	void QCreep(const std::string& type, int path);
-	int QRandom(int path);
+	int QRandom(int path, int wave);
 
 	Creep* GetFirstWithin(float range, const Vec2& position);
 	Creep* GetColliding(const Rect& hitbox);
@@ -56,4 +57,3 @@ public:
 	void FixedUpdate();
 	void Draw(float interp);
 };
-
