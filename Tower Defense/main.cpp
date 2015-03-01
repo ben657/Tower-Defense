@@ -2,7 +2,7 @@
 #include <World/World.h>
 #include <Graphics/Graphics.h>
 #include <Input.h>
-
+//#include <vld.h>
 #include <Game/MenuScene.h>
 #include <Game/GameScene.h>
 #include <Game/GameOverScene.h>

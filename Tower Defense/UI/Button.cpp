@@ -8,12 +8,21 @@ Button::Button(Rect rect, std::string text, Colour colour) : rect_(rect), text_(
 	highLightCol_.b = math::max(0, (int)highLightCol_.b - 30);
 }
 
+void Button::SetColour(const Colour& colour)
+{
+	colour_ = colour;
+	highLightCol_ = colour_;
+	highLightCol_.r = math::max(0, (int)highLightCol_.r - 30);
+	highLightCol_.g = math::max(0, (int)highLightCol_.g - 30);
+	highLightCol_.b = math::max(0, (int)highLightCol_.b - 30);
+}
+
 void Button::Update(float delta)
 {
+	justPressed_ = false;
+
 	if (!visible_)
 		return;
-
-	justPressed_ = false;
 	
 	if (input->MouseBtnJustDown(0))
 	{

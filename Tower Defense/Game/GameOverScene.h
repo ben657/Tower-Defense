@@ -18,7 +18,7 @@ private:
 	Button* mainMenuBtn_ = nullptr;
 	Button* inputDoneBtn_ = nullptr;
 
-	char* mapName_ = nullptr;
+	std::string mapName_;
 	int score_ = 0;
 	bool takingInput_ = true;
 	std::string input_ = "_ _ _";
@@ -30,8 +30,8 @@ public:
 	GameOverScene();
 	~GameOverScene();
 
-	void SwitchedTo(const std::string& from, void* data);
-	void* SwitchedFrom(const std::string& to);
+	void SwitchedTo(const std::string& from);
+	void SwitchedFrom(const std::string& to);
 
 	void Update(float delta) override;
 	void Draw(float interp) override;

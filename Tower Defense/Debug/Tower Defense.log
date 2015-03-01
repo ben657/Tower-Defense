@@ -1,81 +1,9 @@
-﻿Build started 19/02/2015 18:19:19.
-     1>Project "U:\Year 2\GEC\Tower-Defense\Tower Defense\Tower Defense.vcxproj" on node 2 (Rebuild target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I"U:\Year 2\GEC\Tower-Defense\Tower Defense\\" /IHAPI /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _MBCS /Gm /EHsc /RTC1 /MTd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Audio.cpp Game\Creep.cpp Game\CreepManager.cpp Game\GameOverScene.cpp Game\GameScene.cpp Game\Map.cpp Game\MenuScene.cpp Game\Projectile.cpp Game\ProjectileManager.cpp Game\Projectiles\FireBall.cpp Game\Projectiles\Glue.cpp Game\Projectiles\Lightning.cpp Game\Tower.cpp Game\TowerManager.cpp Graphics\Animation.cpp Graphics\Graphics.cpp Graphics\Texture.cpp Input.cpp main.cpp Math\Math.cpp Math\Rect.cpp Math\Vec2.cpp UI\Button.cpp UI\UIComponent.cpp World\Entity.cpp World\Scene.cpp World\World.cpp
-         World.cpp
-         Scene.cpp
-         Entity.cpp
-         UIComponent.cpp
-         Button.cpp
-         Vec2.cpp
-         Rect.cpp
-         Math.cpp
-         main.cpp
-         Input.cpp
-         Texture.cpp
-         Graphics.cpp
-         Animation.cpp
-         TowerManager.cpp
-         Tower.cpp
-         Lightning.cpp
-         Glue.cpp
-         FireBall.cpp
-         ProjectileManager.cpp
-         Projectile.cpp
-         Generating Code...
-         Compiling...
-         MenuScene.cpp
-         Map.cpp
-         GameScene.cpp
-         GameOverScene.cpp
-         CreepManager.cpp
-         Creep.cpp
-         Audio.cpp
-         Generating Code...
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.exe" /INCREMENTAL /NOLOGO /LIBPATH:HAPI /LIBPATH:DirectX/X86 HAPI_debug.lib d3dx9.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.lib" /MACHINE:X86 Debug\Audio.obj
-         Debug\Creep.obj
-         Debug\CreepManager.obj
-         Debug\GameOverScene.obj
-         Debug\GameScene.obj
-         Debug\Map.obj
-         Debug\MenuScene.obj
-         Debug\Projectile.obj
-         Debug\ProjectileManager.obj
-         Debug\FireBall.obj
-         Debug\Glue.obj
-         Debug\Lightning.obj
-         Debug\Tower.obj
-         Debug\TowerManager.obj
-         Debug\Animation.obj
-         Debug\Graphics.obj
-         Debug\Texture.obj
-         Debug\Input.obj
-         Debug\main.obj
-         Debug\Math.obj
-         Debug\Rect.obj
-         Debug\Vec2.obj
-         Debug\Button.obj
-         Debug\UIComponent.obj
-         Debug\Entity.obj
-         Debug\Scene.obj
-         Debug\World.obj
-     1>HAPI_debug.lib(DirectSoundUtil.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(DirectSoundUtil.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(Error.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(Error.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiCore.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiCore.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiInputOs.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiInputOs.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiMain.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiMain.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiOsWindows.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiOsWindows.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiRendererDirect3D.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiRendererDirect3D.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiSoundDirectSound.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiSoundDirectSound.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(HapiXInput.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(HapiXInput.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(StreamedMediaPlayer.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(StreamedMediaPlayer.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(StringUtils.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(StringUtils.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(Utility.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(Utility.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-     1>HAPI_debug.lib(stdafx.obj) : warning LNK4099: PDB 'vc120.pdb' was not found with 'HAPI_debug.lib(stdafx.obj)' or at 'U:\Year 2\GEC\Tower-Defense\Debug\vc120.pdb'; linking object as if no debug info
-         Tower Defense.vcxproj -> U:\Year 2\GEC\Tower-Defense\Debug\Tower Defense.exe
-     1>Done Building Project "U:\Year 2\GEC\Tower-Defense\Tower Defense\Tower Defense.vcxproj" (Rebuild target(s)).
+﻿Build started 20/02/2015 18:49:52.
+     1>Project "E:\Ben\Documents\Visual Studio 2013\Projects\Tower-Defense\Tower Defense\Tower Defense.vcxproj" on node 2 (Build target(s)).
+     1>Link:
+         Tower Defense.vcxproj -> E:\Ben\Documents\Visual Studio 2013\Projects\Tower-Defense\Debug\Tower Defense.exe
+     1>Done Building Project "E:\Ben\Documents\Visual Studio 2013\Projects\Tower-Defense\Tower Defense\Tower Defense.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:29.81
+Time Elapsed 00:00:00.36

@@ -13,37 +13,40 @@ GameScene::GameScene()
 GameScene::~GameScene()
 {
 	Scene::~Scene();
-	delete cManager_;
-	delete pManager_;
-	delete tManager_;
+	if (cManager_ != nullptr)
+		delete cManager_;
+	if (pManager_ != nullptr)
+		delete pManager_;
+	if (tManager_!= nullptr)
+		delete tManager_;
 	if (map_ != nullptr)
 		delete map_;
 	if (placingTower_ != nullptr)
 		delete placingTower_;
 }
 
-void GameScene::SwitchedTo(const std::string& from, void* data)
+void GameScene::SwitchedTo(const std::string& from)
 {
 	HAPI->ChangeFont("Arial", 12, 700);
 
-	std::string mapName = std::string((char*)data);
+	std::string mapName = world->GetLevel();
 
 	audio->StopSound("menuLoop");
 	audio->PlaySound("gameLoop", true, 1000);
 
 	srand((int)time(0));
 
-	plMoney = 1000;
+	plMoney = 100;
 	plHealth = 20;
 	numPaths = 0;
 	numCreeps = 0;
 	wave = 0;
 
+	map_ = new Map((Scene*)this, mapName);
+
 	cManager_ = new CreepManager(this, 5000);
 	pManager_ = new ProjectileManager(this, 100);
-	tManager_ = new TowerManager(this, 100);
-
-	map_ = new Map((Scene*)this, mapName);
+	tManager_ = new TowerManager(this, 100);	
 
 	cManager_->LoadCreepData("bunny");
 	cManager_->LoadCreepData("unicorn");
@@ -95,22 +98,32 @@ void GameScene::SwitchedTo(const std::string& from, void* data)
 	}
 	
 	StartSpawning();
+	//SpawnWave();
 }
 
-void* GameScene::SwitchedFrom(const std::string& to)
+void GameScene::SwitchedFrom(const std::string& to)
 {
 	audio->StopSound("gameLoop");
 
 	world->ChangeSpeedMult(1.f);
-	world->camPos.Zero();
+	world->camPos.Zero();	
+
+	delete cManager_;
+	cManager_ = nullptr;
+	delete pManager_;
+	pManager_ = nullptr;
+	delete tManager_;	
+	tManager_ = nullptr;
+	delete map_;
+	map_ = nullptr;
+	if (placingTower_ != nullptr)
+	{
+		delete placingTower_;
+		placingTower_ = nullptr;
+	}		
 
 	if (to == "GameOverScene")
-	{
 		world->SetScore(wave - 1);
-		const char* map = map_->name_.c_str();
-		return (void*)map;
-	}
-	return nullptr;
 }
 
 void GameScene::StartSpawning()
@@ -149,13 +162,14 @@ void GameScene::Update(float delta)
 {
 	Scene::Update(delta);	
 
-	//if (input->KeyJustDown(HK_ESCAPE))
-	//{
-	//	//HAPI->Close();
-	//}
+	if (input->KeyJustDown(HK_ESCAPE))
+	{
+		world->SetActiveScene("GameOverScene");
+		return;
+	}
 
 	if (!spawning_ && spawnThread_.joinable())
-	{
+	{		
 		spawnThread_.join();
 		audio->PlaySound("newWave", false, 1000);
 	}
@@ -168,6 +182,7 @@ void GameScene::Update(float delta)
 		{
 			tManager_->NewTower(placingTowerName_, pos);
 			placingTowerName_ = "";
+			delete placingTower_;
 			placingTower_ = nullptr;
 			plMoney -= cost;
 		}
@@ -185,9 +200,7 @@ void GameScene::Update(float delta)
 	{
 		if (towerBtns[i]->justPressed_)
 		{
-			placingTowerName_ = tManager_->towerTypes_[i];
-			if (placingTower_ != nullptr)
-				delete placingTower_;
+			placingTowerName_ = tManager_->towerTypes_[i];							
 			placingTower_ = new Entity();
 			placingTower_->SetAnimID(towerAnim);
 			placingTower_->SetOffset(Vec2(-16.f, -24.f));
@@ -199,19 +212,11 @@ void GameScene::Update(float delta)
 
 	if (input->KeyDown('A'))
 	{
-		world->camPos.x_ -= 2;
+		world->camPos.x_ -= 1.5f * delta;
 	}
 	if (input->KeyDown('D'))
 	{
-		world->camPos.x_ += 2;
-	}
-	if (input->KeyDown('W'))
-	{
-		world->camPos.y_ -= 2;
-	}
-	if (input->KeyDown('S'))
-	{
-		world->camPos.y_ += 2;
+		world->camPos.x_ += 1.5f * delta;
 	}
 
 	if (input->KeyJustDown('1'))
@@ -225,10 +230,6 @@ void GameScene::Update(float delta)
 	if (input->KeyJustDown('3'))
 	{
 		world->ChangeSpeedMult(4.f);
-	}
-	if (input->KeyJustDown('4'))
-	{
-		world->ChangeSpeedMult(8.f);
 	}
 	if (input->KeyJustDown(' '))
 	{
@@ -246,8 +247,8 @@ void GameScene::Update(float delta)
 		world->camPos.x_ = 2048.f - gfx->GetWidth();
 	if (world->camPos.y_ < 0)
 		world->camPos.y_ = 0;
-	if (world->camPos.y_ > 1024.f - gfx->GetHeight())
-		world->camPos.y_ = 1024.f - gfx->GetHeight();
+	if (world->camPos.y_ > 768.f - gfx->GetHeight())
+		world->camPos.y_ = 768.f - gfx->GetHeight();
 
 	tManager_->Update(delta);
 	if (!spawning_)
@@ -268,17 +269,21 @@ void GameScene::FixedUpdate()
 	if (placingTower_ != nullptr)
 		placingTower_->FixedUpdate();
 
-	if (cManager_->AllDead())
-	{
-		StartSpawning();
-		//cManager_->spawnDelay_ *= 0.9f;
-	}
-
 	if (plHealth <= 0)
 	{
 		plHealth = 0;
 		world->SetActiveScene("GameOverScene");
+		return;
 	}
+
+	if (!spawning_)
+	{
+		if (cManager_->AllDead())
+		{
+			StartSpawning();
+			cManager_->spawnDelay_ *= 0.95f;
+		}
+	}	
 }
 
 void GameScene::Draw(float interp)

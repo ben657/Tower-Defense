@@ -48,8 +48,8 @@ public:
 	GameScene();
 	~GameScene();
 
-	void SwitchedTo(const std::string& from, void* data) override;
-	void* SwitchedFrom(const std::string& to) override;
+	void SwitchedTo(const std::string& from) override;
+	void SwitchedFrom(const std::string& to) override;
 
 	void SpawnWave();
 

@@ -62,26 +62,25 @@ void World::Start()
 	}
 }
 
-void World::AddScene(Scene* scene, std::string uid)
+void World::AddScene(Scene* scene, const std::string& uid)
 {
 	scenes_[uid] = scene;
 }
 
-Scene* World::GetScene(std::string uid)
+Scene* World::GetScene(const std::string& uid)
 {
 	if (scenes_.find(uid) == scenes_.end())
 		return nullptr;
 	return scenes_[uid];
 }
 
-void World::SetActiveScene(std::string uid)
+void World::SetActiveScene(const std::string& uid)
 {
-	void* data = nullptr;
 	if (activeScene_ != nullptr)
-		data = activeScene_->SwitchedFrom(uid);
+		activeScene_->SwitchedFrom(uid);
 
 	activeScene_ = scenes_[uid];
-	activeScene_->SwitchedTo(activeID_, data);
+	activeScene_->SwitchedTo(activeID_);
 	activeID_ = uid;
 }
 

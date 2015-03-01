@@ -1,10 +1,11 @@
 u:\year 2\gec\tower-defense\tower defense\debug\vc120.pdb
 u:\year 2\gec\tower-defense\tower defense\debug\vc120.idb
-u:\year 2\gec\tower-defense\tower defense\debug\menuscene.obj
 u:\year 2\gec\tower-defense\tower defense\debug\projectile.obj
 u:\year 2\gec\tower-defense\tower defense\debug\projectilemanager.obj
 u:\year 2\gec\tower-defense\tower defense\debug\fireball.obj
+u:\year 2\gec\tower-defense\tower defense\debug\glue.obj
 u:\year 2\gec\tower-defense\tower defense\debug\lightning.obj
+u:\year 2\gec\tower-defense\tower defense\debug\tower.obj
 u:\year 2\gec\tower-defense\tower defense\debug\towermanager.obj
 u:\year 2\gec\tower-defense\tower defense\debug\animation.obj
 u:\year 2\gec\tower-defense\tower defense\debug\graphics.obj
@@ -19,11 +20,13 @@ u:\year 2\gec\tower-defense\tower defense\debug\uicomponent.obj
 u:\year 2\gec\tower-defense\tower defense\debug\entity.obj
 u:\year 2\gec\tower-defense\tower defense\debug\scene.obj
 u:\year 2\gec\tower-defense\tower defense\debug\world.obj
+u:\year 2\gec\tower-defense\tower defense\debug\audio.obj
 u:\year 2\gec\tower-defense\tower defense\debug\creep.obj
 u:\year 2\gec\tower-defense\tower defense\debug\creepmanager.obj
+u:\year 2\gec\tower-defense\tower defense\debug\gameoverscene.obj
 u:\year 2\gec\tower-defense\tower defense\debug\gamescene.obj
 u:\year 2\gec\tower-defense\tower defense\debug\map.obj
-u:\year 2\gec\tower-defense\tower defense\debug\tower.obj
+u:\year 2\gec\tower-defense\tower defense\debug\menuscene.obj
 u:\year 2\gec\tower-defense\debug\tower defense.ilk
 u:\year 2\gec\tower-defense\debug\tower defense.exe
 u:\year 2\gec\tower-defense\debug\tower defense.pdb

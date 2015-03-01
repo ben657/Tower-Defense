@@ -21,6 +21,8 @@ public:
 
 	Button(Rect rect, std::string text, Colour colour);
 
+	void SetColour(const Colour& colour);
+
 	void Update(float delta) override;
 	void Draw(float interp) override;
 };

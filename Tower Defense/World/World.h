@@ -24,6 +24,7 @@ private:
 	bool doFixedStep_ = true;
 
 	int score_ = 0;
+	std::string level_ = "";
 
 protected:
 	World();
@@ -43,9 +44,12 @@ public:
 	int GetScore(){ return score_; }
 	void SetScore(int score){ score_ = score; }
 
-	void AddScene(Scene* scene, std::string uid);
-	Scene* GetScene(std::string uid);
-	void SetActiveScene(std::string uid);
+	std::string GetLevel(){ return level_; }
+	void SetLevel(const std::string& level){ level_ = level; }
+
+	void AddScene(Scene* scene, const std::string& uid);
+	Scene* GetScene(const std::string& uid);
+	void SetActiveScene(const std::string& uid);
 	Scene* GetActiveScene();
 
 	void ToggleFixedStep(){ doFixedStep_ = !doFixedStep_; }

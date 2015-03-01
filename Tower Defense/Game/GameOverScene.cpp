@@ -19,11 +19,7 @@ GameOverScene::GameOverScene()
 	inputDoneBtn_ = new Button(Rect(gfx->GetWidth() / 2 - 135, 4 * gfx->GetHeight() / 6, 270, 76), "", Colour(104, 72, 51));
 	inputDoneBtn_->iconOffset_ = Vec2(7.f, 5.f);
 	inputDoneBtn_->SetTextureID("btn_done");
-	AddEntity(inputDoneBtn_);
-
-	tryAgainBtn_->visible_ = false;
-	mainMenuBtn_->visible_ = false;
-	inputDoneBtn_->visible_ = true;
+	AddEntity(inputDoneBtn_);	
 }
 
 GameOverScene::~GameOverScene()
@@ -31,18 +27,25 @@ GameOverScene::~GameOverScene()
 	Scene::~Scene();
 }
 
-void GameOverScene::SwitchedTo(const std::string& from, void* data)
+void GameOverScene::SwitchedTo(const std::string& from)
 {
-	HAPI->ChangeFont("Arial", 42, 700);
+	HAPI->ChangeFont("Arial", 36, 700);
 
-	mapName_ = (char*)data;
+	scores_.clear();
+	mapName_ = world->GetLevel();
 	score_ = world->GetScore();
+	takingInput_ = true;
+	input_ = "_ _ _";
+	currentInput_ = 0;
+
+	tryAgainBtn_->visible_ = false;
+	mainMenuBtn_->visible_ = false;
+	inputDoneBtn_->visible_ = true;
 }
 
-void* GameOverScene::SwitchedFrom(const std::string& to)
+void GameOverScene::SwitchedFrom(const std::string& to)
 {
-	if (to == "GameScene")
-		return (void*)mapName_;
+	HAPI->ChangeFont("Arial", 12, 700);	
 
 	std::ofstream file;
 	file.open("Data/highScores.txt");
@@ -50,13 +53,13 @@ void* GameOverScene::SwitchedFrom(const std::string& to)
 	for (int i = 0; i < (int)scores_.size(); i++)
 	{
 		Score s = scores_[i];
-		std::string line = s.name + " " + std::to_string(s.score) + "\n";
+		std::string line = s.name + " " + std::to_string(s.score);
+		if (i < scores_.size() - 1)
+			line += "\n";
 		file.write(line.c_str(), line.length());
 	}
 
 	file.close();
-
-	return nullptr;
 }
 
 void GameOverScene::Update(float delta)
@@ -86,17 +89,16 @@ void GameOverScene::Update(float delta)
 
 			std::ifstream hsFile;
 			hsFile.open("Data/highScores.txt");
-			int numEntries = 10;
 			int i = 0;
 			bool addedPlayer_ = false;
-			for (; i < numEntries && !hsFile.eof(); i++)
-			{
+			while(!hsFile.eof())
+			{				
 				Score s;
 
 				hsFile >> s.name;
 				hsFile >> s.score;
 
-				if (score_ > s.score)
+				if (score_ > s.score && !addedPlayer_)
 				{
 					input_.erase(std::remove(input_.begin(), input_.end(), ' '), input_.end());
 					Score ps;
@@ -107,10 +109,15 @@ void GameOverScene::Update(float delta)
 					addedPlayer_ = true;
 				}				
 
-				scores_.push_back(s);				
+				scores_.push_back(s);	
+				std::string dg = s.name + " " + std::to_string(s.score);
+
+				i++;
+				if (i > 4)
+					break;
 			}
 
-			if (!addedPlayer_ && i < 10)
+			if (!addedPlayer_ && i < 5)
 			{
 				input_.erase(std::remove(input_.begin(), input_.end(), ' '), input_.end());
 				Score s;
@@ -148,7 +155,7 @@ void GameOverScene::Draw(float interp)
 	}
 	else
 	{
-		int yStart = ymid - gfx->GetHeight() / 5;
+		int yStart = 50;
 		int x = xmid - 120;
 		for (int i = 0; i < (int)scores_.size(); i++)
 		{

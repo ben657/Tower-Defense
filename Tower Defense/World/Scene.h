@@ -12,8 +12,8 @@ public:
 	Scene();
 	virtual ~Scene();
 	
-	virtual void SwitchedTo(const std::string& from, void* data = nullptr){};
-	virtual void* SwitchedFrom(const std::string& to){ return nullptr; };
+	virtual void SwitchedTo(const std::string& from){};
+	virtual void SwitchedFrom(const std::string& to){};
 
 	int AddEntity(Entity* entity);
 

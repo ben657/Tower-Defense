@@ -47,6 +47,9 @@ void Graphics::Initialise(int screenWidth, int screenHeight)
 
 void Graphics::LoadTexture(std::string loadPath, std::string uid)
 {
+	if (textures_.find(uid) != textures_.end())
+		return;
+
 	Texture* texture = new Texture(loadPath);
 	textures_[uid] = texture;
 }
